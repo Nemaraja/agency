@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   ShieldCheck, HeartPulse, Car, Mail, X, 
   CheckCircle2, MessageCircle, ChevronRight, ArrowRight, 
-  Building2, Plus, Minus, Target, Users, Award, Clock, Zap
+  Plus, Minus, Target, Users, Award, Clock, Zap
 } from 'lucide-react';
 
 export default function App() {
@@ -11,24 +11,25 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
 
+  // Updated with your actual uploaded filenames from the public folder
   const partners = [
-    { name: "Maagap", color: "text-blue-500", sub: "Insurance" },
-    { name: "Bethel", color: "text-red-500", sub: "Gen. Insurance" },
-    { name: "Paramount", color: "text-blue-900", sub: "Life & Gen" },
-    { name: "Pacific Cross", color: "text-orange-500", sub: "Health & Travel" },
-    { name: "Asia Insurance", color: "text-red-600", sub: "Philippines" },
-    { name: "Standard", color: "text-emerald-500", sub: "Insurance" }
+    { name: "Pacific Cross", img: "Pacific-Cross.png" },
+    { name: "Paramount", img: "Paramount.png" },
+    { name: "PhilBritish", img: "PhilBritish.png" },
+    { name: "Asia United", img: "asia-united.svg" },
+    { name: "Bethel", img: "Bethel.png" },
+    { name: "Maagap", img: "maagap.png" }
   ];
 
   const reasons = [
     {
       title: "Decades of Expertise",
-      desc: "Our consultants have years of deep experience in the Philippine insurance landscape.",
+      desc: "Our consultants have deep experience in the Philippine insurance landscape.",
       icon: <Award className="w-8 h-8 text-blue-400" />
     },
     {
       title: "Fast Claims Support",
-      desc: "We don't just sell policies; we stand by you when it’s time to file a claim.",
+      desc: "We stand by you when it’s time to file a claim, ensuring a smooth process.",
       icon: <Clock className="w-8 h-8 text-emerald-400" />
     },
     {
@@ -38,28 +39,13 @@ export default function App() {
     }
   ];
 
-  const faqs = [
-    {
-      q: "What is the difference between HMO and Life Insurance?",
-      a: "HMO focuses on immediate healthcare like check-ups and hospital stays. Life Insurance provides financial security for your family in the event of death or critical illness."
-    },
-    {
-      q: "How long does it take to get a quote?",
-      a: "Once you submit your inquiry, a BDRS Associate will reach out within 24 hours."
-    },
-    {
-      q: "Does your Non-Life insurance cover Acts of Nature?",
-      a: "Yes, we offer comprehensive coverage that includes protection against typhoons, floods, and earthquakes."
-    }
-  ];
-
   const products = [
     {
       id: 'life',
       title: 'Life Insurance',
       icon: <ShieldCheck className="w-10 h-10 text-blue-400" />,
       shortDesc: 'Protect your family’s future and build lasting peace of mind.',
-      longDesc: 'Life insurance is a promise to your loved ones. Our plans cover educational funds, mortgage protection, and estate planning to ensure your family stays financially secure.',
+      longDesc: 'Life insurance is a promise to your loved ones. Our plans cover educational funds, mortgage protection, and estate planning.',
       benefits: ['Death Benefit Protection', 'Critical Illness Riders', 'Educational Funding', 'Retirement Planning']
     },
     {
@@ -67,7 +53,7 @@ export default function App() {
       title: 'HMO / Health Coverage',
       icon: <HeartPulse className="w-10 h-10 text-emerald-400" />,
       shortDesc: 'Comprehensive medical protection for you and your employees.',
-      longDesc: 'Health is your greatest asset. We partner with top providers to give you access to the best hospitals and doctors without the heavy financial burden.',
+      longDesc: 'Health is your greatest asset. We partner with top providers to give you access to the best hospitals and doctors.',
       benefits: ['In-patient & Out-patient Care', 'Emergency Services', 'Dental Coverage', 'Annual Physical Exams']
     },
     {
@@ -75,7 +61,7 @@ export default function App() {
       title: 'Non-Life Insurance',
       icon: <Car className="w-10 h-10 text-cyan-400" />,
       shortDesc: 'Protect your vehicles, property, and business assets.',
-      longDesc: 'Our non-life products provide robust coverage for your cars, homes, and business operations against fire, theft, and natural disasters.',
+      longDesc: 'Our non-life products provide robust coverage for your cars, homes, and business operations.',
       benefits: ['Comprehensive Car Insurance', 'Fire & Allied Perils', 'Marine Insurance', 'Surety Bonds']
     }
   ];
@@ -137,7 +123,6 @@ export default function App() {
             </a>
           </div>
 
-          {/* QUOTE FORM */}
           <div id="quote" className="bg-slate-900/40 border border-white/10 p-8 rounded-[2.5rem] backdrop-blur-2xl shadow-2xl">
             <h3 className="text-2xl font-bold mb-6">Request a Quote</h3>
             <form onSubmit={onSubmit} className="space-y-4">
@@ -159,11 +144,30 @@ export default function App() {
         </div>
       </section>
 
+      {/* PARTNERS LOGO CLOUD */}
+      <section className="max-w-7xl mx-auto px-6 py-24">
+        <div className="relative bg-white/[0.02] border border-white/5 rounded-[3rem] p-12 text-center">
+          <p className="text-[10px] font-black tracking-[0.4em] text-slate-600 uppercase mb-12">Authorized Provider For</p>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-12 items-center">
+            {partners.map(p => (
+              <div key={p.name} className="flex flex-col items-center group">
+                <img 
+                  src={`./${p.img}`} 
+                  alt={p.name} 
+                  className="h-12 w-auto object-contain grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
+                  onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/150?text=' + p.name }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* WHY CHOOSE BDRS */}
       <section className="max-w-7xl mx-auto px-6 py-24 border-y border-white/5 bg-white/[0.01]">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Why Choose BDRS?</h2>
-          <p className="text-slate-400 max-w-2xl mx-auto text-sm">We don't just sell insurance; we build long-term relationships through dependability and expert care.</p>
+          <p className="text-slate-400 max-w-2xl mx-auto text-sm">We build long-term relationships through dependability and expert care.</p>
         </div>
         <div className="grid md:grid-cols-3 gap-12">
           {reasons.map((r, i) => (
@@ -175,53 +179,6 @@ export default function App() {
               <p className="text-slate-400 text-sm leading-relaxed">{r.desc}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* PARTNERS SECTION */}
-      <section className="max-w-7xl mx-auto px-6 py-24">
-        <div className="relative bg-white/[0.02] border border-white/5 rounded-[3rem] p-12 overflow-hidden text-center">
-          <p className="text-[10px] font-black tracking-[0.4em] text-slate-600 uppercase mb-12">Authorized Provider For</p>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center opacity-50 grayscale hover:grayscale-0 transition-all duration-700">
-            {partners.map(p => (
-              <div key={p.name} className="flex flex-col items-center group cursor-default">
-                <span className={`text-lg font-black ${p.color} transition-all group-hover:scale-110`}>{p.name.toUpperCase()}</span>
-                <span className="text-[8px] font-bold text-slate-500">{p.sub}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ABOUT US SECTION */}
-      <section id="about" className="max-w-7xl mx-auto px-6 py-24">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-blue-500/5 border border-blue-500/10 p-8 rounded-[2rem] text-center">
-              <Target className="w-10 h-10 text-blue-400 mx-auto mb-4" />
-              <h4 className="font-bold mb-2">Our Mission</h4>
-              <p className="text-[10px] text-slate-400 leading-relaxed uppercase tracking-wider">Dependable solutions through expert guidance.</p>
-            </div>
-            <div className="bg-emerald-500/5 border border-emerald-500/10 p-8 rounded-[2rem] mt-8 text-center">
-              <Users className="w-10 h-10 text-emerald-400 mx-auto mb-4" />
-              <h4 className="font-bold mb-2">Our Clients</h4>
-              <p className="text-[10px] text-slate-400 leading-relaxed uppercase tracking-wider">Serving families and businesses nationwide.</p>
-            </div>
-          </div>
-          <div>
-            <h2 className="text-4xl font-bold mb-6 italic">Building Dependable Risks Solutions</h2>
-            <p className="text-slate-400 leading-relaxed mb-8">
-              BDRS Associates bridges the gap between major insurance providers and your specific needs. With years of experience in the Philippine market, we simplify the complex to keep you protected.
-            </p>
-            <div className="space-y-4">
-              {['Claims Assistance', 'Multiple Provider Comparison', 'Professional Consulting'].map((item, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-4 h-4 text-blue-400" />
-                  <span className="font-bold text-sm text-slate-300">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
@@ -242,36 +199,12 @@ export default function App() {
         </div>
       </section>
 
-      {/* FAQ SECTION */}
-      <section id="faq" className="max-w-3xl mx-auto px-6 py-24">
-        <h2 className="text-4xl font-bold mb-12 text-center underline decoration-blue-500/20 underline-offset-8">Common Questions</h2>
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <div key={index} className="border border-white/5 rounded-2xl bg-white/[0.02] overflow-hidden">
-              <button 
-                onClick={() => setActiveFaq(activeFaq === index ? null : index)}
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-white/[0.03] transition"
-              >
-                <span className="font-bold text-sm md:text-base">{faq.q}</span>
-                {activeFaq === index ? <Minus className="w-5 h-5 text-blue-400" /> : <Plus className="w-5 h-5 text-slate-500" />}
-              </button>
-              {activeFaq === index && (
-                <div className="px-6 pb-6 text-slate-400 text-sm leading-relaxed animate-in slide-in-from-top-2 duration-300">
-                  {faq.a}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* FINAL BOTTOM CTA */}
       <section className="max-w-5xl mx-auto px-6 py-20">
         <div className="bg-gradient-to-br from-blue-600 to-emerald-600 rounded-[3rem] p-12 text-center relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 left-0 w-full h-full bg-black/10" />
           <div className="relative z-10">
             <h2 className="text-3xl md:text-5xl font-black mb-6">Ready to secure your future?</h2>
-            <p className="text-white/80 mb-10 max-w-xl mx-auto">Don’t wait for the unexpected. Get a personalized quote today and experience guidance you can trust.</p>
+            <p className="text-white/80 mb-10 max-w-xl mx-auto">Get a personalized quote today and experience guidance you can trust.</p>
             <a href="#quote" className="inline-block bg-white text-slate-900 px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-transform shadow-xl">
               Get Your Quote Now
             </a>
@@ -281,17 +214,12 @@ export default function App() {
 
       {/* FOOTER */}
       <footer className="border-t border-white/5 py-12 px-6 text-center">
-        <div className="flex justify-center gap-8 mb-8 text-slate-500">
-           <a href="mailto:bdrsassociates@gmail.com" className="hover:text-white transition">Email</a>
-           <a href="#" className="hover:text-white transition">WhatsApp</a>
-           <a href="#" className="hover:text-white transition">Facebook</a>
-        </div>
         <p className="text-slate-600 text-[10px] font-black tracking-[0.4em] uppercase">
           © {new Date().getFullYear()} BDRS Associates Insurance Agency
         </p>
       </footer>
 
-      {/* MODALS */}
+      {/* SUCCESS MODAL */}
       {showSuccess && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center px-6">
           <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-sm" onClick={() => setShowSuccess(false)} />
@@ -304,6 +232,7 @@ export default function App() {
         </div>
       )}
 
+      {/* PRODUCT MODAL */}
       {selectedProduct && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center px-6 py-10">
           <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-md" onClick={() => setSelectedProduct(null)} />
@@ -324,11 +253,6 @@ export default function App() {
           </div>
         </div>
       )}
-
-      {/* FLOATING WHATSAPP */}
-      <a href="https://wa.me/YOUR_PHONE_NUMBER" target="_blank" className="fixed bottom-8 right-8 z-50 p-4 bg-emerald-500 text-slate-950 rounded-full shadow-2xl hover:scale-110 transition-transform active:scale-95">
-        <MessageCircle className="w-7 h-7" />
-      </a>
     </div>
   );
 }
