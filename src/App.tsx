@@ -164,41 +164,46 @@ export default function App() {
         </div>
       </section>
 
-      {/* PARTNERS SECTION - Made much larger with original colors */}
+      {/* ACCREDITED PARTNERS SECTION */}
       <section className="max-w-7xl mx-auto px-6 py-16 md:py-24 relative">
-        <div className="text-center mb-12 md:mb-16">
-          {/* Increased heading size from text-[10px] to text-lg/2xl */}
-          <h3 className="text-lg md:text-2xl font-black tracking-[0.2em] text-blue-400 uppercase mb-3 md:mb-4">
+        <div className="text-center mb-16">
+          <h3 className="text-2xl md:text-4xl font-black tracking-tight text-white mb-4">
             Accredited Partners
           </h3>
-          <p className="text-slate-400 text-sm italic">Tap a card to reveal company history</p>
+          <div className="h-1.5 w-24 bg-blue-500 mx-auto rounded-full mb-6"></div>
+          <p className="text-slate-400 text-sm md:text-base italic">Tap a partner to reveal their expertise and company history</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
           {partners.map((p, index) => (
             <div 
               key={p.name}
               onClick={() => setActivePartner(activePartner === index ? null : index)}
-              className={`group p-8 md:p-10 rounded-[2rem] border transition-all duration-300 active:scale-[0.98] cursor-pointer
+              className={`group p-8 rounded-[2.5rem] border transition-all duration-300 active:scale-[0.98] cursor-pointer
                 ${activePartner === index 
-                  ? `${p.color} bg-slate-900 border-blue-500/50 shadow-2xl scale-[1.02]` 
-                  : 'border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20'}`}
+                  ? `${p.color} bg-slate-900 border-blue-500/50 shadow-2xl` 
+                  : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/20'}`}
             >
-              {/* Removed ALL brightness filters so logos retain full original color. Increased height to h-20/24 */}
-              <div className="h-20 sm:h-24 flex items-center justify-start mb-6">
+              {/* WHITE LOGO CONTAINER - THE "APPLE" STYLE SUGGESTION */}
+              <div className="bg-white p-6 rounded-3xl h-32 flex items-center justify-center mb-8 shadow-inner overflow-hidden">
                 <img 
                   src={`./${p.img}`} 
                   alt={p.name} 
-                  className={`h-full w-auto object-contain transition-transform duration-500 
+                  className={`max-h-full w-auto object-contain transition-transform duration-500 
                     ${activePartner === index ? 'scale-110' : 'group-hover:scale-105'}`}
-                  onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/150?text=' + p.name }}
+                  onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/200x100?text=' + p.name }}
                 />
               </div>
-              <div className="text-left">
-                {/* Increased title size */}
-                <h4 className="font-bold text-xl md:text-2xl text-slate-100">{p.name}</h4>
+
+              <div className="text-left px-2">
+                <h4 className="font-bold text-xl md:text-2xl text-slate-100 flex items-center justify-between">
+                  {p.name}
+                  <ChevronRight className={`w-5 h-5 text-blue-500 transition-transform ${activePartner === index ? 'rotate-90' : ''}`} />
+                </h4>
                 <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activePartner === index ? 'max-h-80 opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
-                  <p className="text-sm md:text-base text-slate-300 leading-relaxed pt-4 border-t border-white/10">{p.desc}</p>
+                  <p className="text-sm md:text-base text-slate-400 leading-relaxed pt-4 border-t border-white/10">
+                    {p.desc}
+                  </p>
                 </div>
               </div>
             </div>
@@ -243,7 +248,7 @@ export default function App() {
         <p className="text-[10px] text-slate-500 uppercase tracking-[0.3em] font-bold">© {new Date().getFullYear()} BDRS Associates Insurance Agency</p>
       </footer>
 
-      {/* MOBILE FRIENDLY MODAL */}
+      {/* MODAL */}
       {selectedProduct && (
         <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-md" onClick={() => setSelectedProduct(null)} />
