@@ -111,7 +111,9 @@ export default function App() {
                   <input name="name" type="text" placeholder="Full Name" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
                   <input name="email" type="email" placeholder="Email Address" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
                   <input name="phone" type="tel" placeholder="Phone Number (e.g. 0917-XXX-XXXX)" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
-                  <select name="service" className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-slate-300 transition appearance-none">
+
+                  {/* UPDATED BLACK DROPDOWN */}
+                  <select name="service" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition cursor-pointer">
                     <option value="" disabled selected className="bg-[#020617] text-slate-500">Select a Protection Plan</option>
                     <option value="Life Insurance" className="bg-[#020617] text-white">Life Insurance</option>
                     <option value="HMO / Health" className="bg-[#020617] text-white">HMO / Health Coverage</option>
