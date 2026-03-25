@@ -2,21 +2,22 @@ import React, { useState } from 'react';
 import { 
   ShieldCheck, HeartPulse, Car, Mail, X, 
   CheckCircle2, ChevronRight, ArrowRight, 
-  Award, Clock, Zap, MapPin, Phone, Shield
+  Award, Clock, Zap, MapPin, Phone, Shield, Send
 } from 'lucide-react';
 
 export default function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false); // New Success State
   const [activePartner, setActivePartner] = useState(null);
 
   const partners = [
-    { name: "Pacific Cross", img: "Pacific-Cross.png", color: "shadow-blue-500/20", desc: "With over 70 years of regional expertise, Pacific Cross Philippines focuses on specialist medical and travel protection across Asia." },
-    { name: "Paramount", img: "Paramount.png", color: "shadow-red-500/20", desc: "Founded in 1950, Paramount provides straightforward life and non-life insurance with a focus on quick, reliable claims." },
-    { name: "PhilBritish", img: "PhilBritish.png", color: "shadow-orange-500/20", desc: "Over 50 years of legacy in the Philippines, offering strong financial backing for property and marine insurance." },
-    { name: "Asia Insurance", img: "asia-insurance.png", color: "shadow-indigo-500/20", desc: "A strategic venture bringing global standards of risk management and reliable coverage to the local market." },
-    { name: "Bethel", img: "bethel.png", color: "shadow-yellow-500/20", desc: "Recognized for diverse non-life products and a strong focus on surety bonds for local business growth." },
-    { name: "Maagap", img: "maagap.png", color: "shadow-cyan-500/20", desc: "Known for proactive protection and innovation in comprehensive motor and fire insurance solutions." }
+    { name: "Pacific Cross", img: "Pacific-Cross.png", desc: "With over 70 years of regional expertise, Pacific Cross Philippines focuses on specialist medical and travel protection across Asia." },
+    { name: "Paramount", img: "Paramount.png", desc: "Founded in 1950, Paramount provides straightforward life and non-life insurance with a focus on quick, reliable claims." },
+    { name: "PhilBritish", img: "PhilBritish.png", desc: "Over 50 years of legacy in the Philippines, offering strong financial backing for property and marine insurance." },
+    { name: "Asia Insurance", img: "asia-insurance.png", desc: "A strategic venture bringing global standards of risk management and reliable coverage to the local market." },
+    { name: "Bethel", img: "bethel.png", desc: "Recognized for diverse non-life products and a strong focus on surety bonds for local business growth." },
+    { name: "Maagap", img: "maagap.png", desc: "Known for proactive protection and innovation in comprehensive motor and fire insurance solutions." }
   ];
 
   const products = [
@@ -49,8 +50,25 @@ export default function App() {
   const onSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    // Add your Web3Forms logic here
-    setTimeout(() => setLoading(false), 2000); 
+    
+    // Web3Forms logic (Replace access_key with yours)
+    const formData = new FormData(event.target);
+    formData.append("access_key", "YOUR_ACCESS_KEY_HERE");
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      setLoading(false);
+      setSubmitted(true); // Show Success Message
+    } else {
+      console.log("Error", data);
+      setLoading(false);
+    }
   };
 
   return (
@@ -80,35 +98,50 @@ export default function App() {
               <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Dependable Risk Solutions.</span>
             </h1>
             <p className="text-xl md:text-2xl font-bold text-slate-300 mb-10">BDRS Associates Insurance Agency</p>
-            <a href="#quote" className="inline-flex px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-bold transition shadow-lg shadow-blue-600/25 items-center gap-2">
-              Start Your Quote <ArrowRight className="w-5 h-5" />
+            <a href="#products" className="inline-flex px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-bold transition shadow-lg shadow-blue-600/25 items-center gap-2">
+              Explore Plans <ArrowRight className="w-5 h-5" />
             </a>
           </div>
 
-          <div id="quote" className="w-full lg:w-[450px] bg-slate-900/40 border border-white/10 p-8 rounded-[2.5rem] backdrop-blur-2xl shadow-2xl shrink-0">
-            <h3 className="text-2xl font-bold mb-6 text-white text-left">Request a Quote</h3>
-            <form onSubmit={onSubmit} className="space-y-4">
-              <input name="name" type="text" placeholder="Full Name" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
-              <input name="email" type="email" placeholder="Email Address" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
-              <select name="service" className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-slate-300 transition appearance-none">
-                <option>Life Insurance</option>
-                <option>HMO / Health Coverage</option>
-                <option>Non-Life Insurance</option>
-              </select>
-              <button disabled={loading} type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 rounded-xl transition-all active:scale-[0.98]">
-                {loading ? "Sending..." : "Submit Inquiry"}
-              </button>
-            </form>
+          <div id="quote" className="w-full lg:w-[450px] bg-slate-900/40 border border-white/10 p-8 rounded-[2.5rem] backdrop-blur-2xl shadow-2xl shrink-0 min-h-[480px] flex flex-col justify-center">
+            {!submitted ? (
+              <>
+                <h3 className="text-2xl font-bold mb-6 text-white">Request a Quote</h3>
+                <form onSubmit={onSubmit} className="space-y-4">
+                  <input name="name" type="text" placeholder="Full Name" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
+                  <input name="email" type="email" placeholder="Email Address" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
+                  <input name="phone" type="tel" placeholder="Phone Number (e.g. 0917-XXX-XXXX)" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
+                  <select name="service" className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-slate-300 transition appearance-none">
+                    <option value="" disabled selected>Select a Protection Plan</option>
+                    <option value="Life Insurance">Life Insurance</option>
+                    <option value="HMO / Health">HMO / Health Coverage</option>
+                    <option value="Non-Life">Non-Life Insurance</option>
+                  </select>
+                  <button disabled={loading} type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 rounded-xl transition-all active:scale-[0.98]">
+                    {loading ? "Sending..." : "Submit Inquiry"}
+                  </button>
+                </form>
+              </>
+            ) : (
+              <div className="text-center py-10 animate-in fade-in zoom-in duration-500">
+                <div className="w-20 h-20 bg-emerald-500/20 border border-emerald-500/50 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Send className="text-emerald-400 w-10 h-10" />
+                </div>
+                <h3 className="text-3xl font-bold text-white mb-4">Inquiry Sent!</h3>
+                <p className="text-slate-400 mb-8 leading-relaxed">Thank you for reaching out. One of our risk advisors will contact you shortly via email or phone.</p>
+                <button onClick={() => setSubmitted(false)} className="text-blue-400 font-bold text-sm uppercase tracking-widest hover:text-blue-300 transition">Send another request</button>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
-      {/* PARTNERS SECTION - WITH WHITE LOGO BACKGROUNDS */}
+      {/* PARTNERS SECTION */}
       <section className="max-w-7xl mx-auto px-6 py-24 border-t border-white/5">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-black mb-4">Accredited Partners</h2>
           <div className="h-1.5 w-24 bg-blue-500 mx-auto rounded-full mb-6"></div>
-          <p className="text-slate-400 italic">Tap a partner to reveal their expertise and company history</p>
+          <p className="text-slate-400 italic">Tap a partner to reveal their expertise and history</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -119,7 +152,6 @@ export default function App() {
               className={`group p-8 rounded-[2.5rem] border transition-all duration-300 cursor-pointer
                 ${activePartner === i ? 'bg-slate-900 border-blue-500/50 shadow-2xl shadow-blue-500/10' : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.05]'}`}
             >
-              {/* THE WHITE LOGO CONTAINER REVISION */}
               <div className="bg-white p-6 rounded-3xl h-28 flex items-center justify-center mb-8 shadow-inner overflow-hidden">
                 <img src={`/agency/${p.img}`} alt={p.name} className="max-h-full object-contain group-hover:scale-110 transition-transform" />
               </div>
@@ -178,22 +210,12 @@ export default function App() {
         </div>
       </section>
 
-      {/* FINAL CALL TO ACTION */}
-      <section className="max-w-6xl mx-auto px-6 py-20 mb-24">
-        <div className="bg-gradient-to-br from-blue-600 to-emerald-600 rounded-[3.5rem] p-12 md:p-20 text-center shadow-2xl shadow-blue-600/20 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
-          <h2 className="text-3xl md:text-5xl font-black mb-6 relative z-10">Ready to secure your future?</h2>
-          <p className="text-white/80 text-lg mb-10 max-w-2xl mx-auto relative z-10">Don't leave your protection to chance. Speak with our expert risk advisors today for a free consultation.</p>
-          <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="relative z-10 px-10 py-5 bg-white text-blue-600 rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-transform shadow-2xl">Start Your Inquiry</button>
-        </div>
-      </section>
-
       {/* FOOTER */}
       <footer className="py-12 border-t border-white/5 text-center">
         <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.4em]">© 2026 BDRS Associates Insurance Agency. All Rights Reserved.</p>
       </footer>
 
-      {/* MODAL */}
+      {/* PRODUCT MODAL */}
       {selectedProduct && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={() => setSelectedProduct(null)} />
@@ -210,7 +232,7 @@ export default function App() {
                 </div>
               ))}
             </div>
-            <button onClick={() => { setSelectedProduct(null); window.location.href="#quote"; }} className="w-full py-4 bg-blue-600 rounded-2xl font-bold hover:bg-blue-500 transition">Inquire Now</button>
+            <button onClick={() => { setSelectedProduct(null); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="w-full py-4 bg-blue-600 rounded-2xl font-bold hover:bg-blue-500 transition">Inquire Now</button>
           </div>
         </div>
       )}
