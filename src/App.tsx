@@ -128,17 +128,17 @@ export default function App() {
         </div>
       </nav>
 
-      {/* HERO SECTION */}
+      {/* HERO SECTION - UPDATED TEXT */}
       <section className="relative pt-32 md:pt-40 pb-16 px-6 overflow-hidden">
         <div className="absolute top-0 right-0 w-64 md:w-[500px] h-64 md:h-[500px] bg-blue-600/10 rounded-full blur-[80px] md:blur-[120px] -z-10" />
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 items-center text-center lg:text-left">
           <div className="flex-1">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6">
-              Insurance With <br className="hidden md:block" />
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Guidance You Can Trust.</span>
+              Building <br className="hidden md:block" />
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Dependable Risk Solutions.</span>
             </h1>
-            <p className="text-base md:text-lg text-slate-400 mb-8 md:mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">
-              Protecting what matters most with expert advice and products tailored for Filipino families and businesses.
+            <p className="text-xl md:text-2xl font-bold text-slate-300 mb-8 md:mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">
+              BDRS Associates Insurance Agency
             </p>
             <a href="#quote" className="inline-flex px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-bold transition shadow-lg shadow-blue-600/25 items-center gap-2 active:scale-95">
               Start Your Quote <ArrowRight className="w-5 h-5" />
@@ -184,7 +184,6 @@ export default function App() {
                   ? `${p.color} bg-slate-900 border-blue-500/50 shadow-2xl` 
                   : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/20'}`}
             >
-              {/* WHITE LOGO CONTAINER - THE "APPLE" STYLE SUGGESTION */}
               <div className="bg-white p-6 rounded-3xl h-32 flex items-center justify-center mb-8 shadow-inner overflow-hidden">
                 <img 
                   src={`./${p.img}`} 
