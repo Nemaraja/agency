@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   ShieldCheck, HeartPulse, Car, Mail, X, 
   CheckCircle2, ChevronRight, ArrowRight, 
-  MapPin, Phone, Shield, Send
+  MapPin, Phone, Shield, Send, Check
 } from 'lucide-react';
 
 export default function App() {
@@ -10,6 +10,10 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [activePartner, setActivePartner] = useState(null);
+  
+  // Custom Dropdown States
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState("");
 
   const partners = [
     { name: "Pacific Cross", img: "Pacific-Cross.png", desc: "With over 70 years of regional expertise, Pacific Cross Philippines focuses on specialist medical and travel protection across Asia." },
@@ -47,11 +51,16 @@ export default function App() {
     }
   ];
 
+  const planOptions = ["Life Insurance", "HMO / Health Coverage", "Non-Life Insurance"];
+
   const onSubmit = async (event) => {
     event.preventDefault();
+    if (!selectedPlan) return alert("Please select a protection plan");
+    
     setLoading(true);
     const formData = new FormData(event.target);
-    formData.append("access_key", "YOUR_ACCESS_KEY_HERE");
+    formData.append("service", selectedPlan); 
+    formData.append("access_key", "YOUR_ACCESS_KEY_HERE"); // Replace with your key
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -99,24 +108,45 @@ export default function App() {
             </a>
           </div>
 
+          {/* FORM WITH CUSTOM DROPDOWN */}
           <div id="quote" className="w-full lg:w-[450px] bg-slate-900/40 border border-white/10 p-8 rounded-[2.5rem] backdrop-blur-2xl shadow-2xl shrink-0 min-h-[520px] flex flex-col justify-center">
             {!submitted ? (
               <>
                 <h3 className="text-2xl font-bold mb-6 text-white text-left">Request a Quote</h3>
                 <form onSubmit={onSubmit} className="space-y-4">
-                  <input name="name" type="text" placeholder="Full Name" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
+                  <input name="name" type="text" placeholder="Full Name" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                   <div className="grid grid-cols-2 gap-4">
-                    <input name="email" type="email" placeholder="Email" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
-                    <input name="phone" type="tel" placeholder="Mobile" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
+                    <input name="email" type="email" placeholder="Email" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
+                    <input name="phone" type="tel" placeholder="Mobile" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                   </div>
                   
-                  {/* PURE BLACK DROPDOWN */}
-                  <select name="service" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition cursor-pointer appearance-none">
-                    <option value="" disabled selected className="bg-[#020617] text-slate-500">Select a Protection Plan</option>
-                    <option value="Life Insurance" className="bg-[#020617] text-white">Life Insurance</option>
-                    <option value="HMO / Health" className="bg-[#020617] text-white">HMO / Health Coverage</option>
-                    <option value="Non-Life" className="bg-[#020617] text-white">Non-Life Insurance</option>
-                  </select>
+                  {/* CUSTOM PREMIUM DROPDOWN */}
+                  <div className="relative">
+                    <div 
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      className={`w-full bg-slate-800/50 border rounded-xl px-4 py-4 flex justify-between items-center cursor-pointer transition-all duration-300 ${isDropdownOpen ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-white/5'}`}
+                    >
+                      <span className={selectedPlan ? "text-white font-medium" : "text-slate-500"}>
+                        {selectedPlan || "Select a Protection Plan"}
+                      </span>
+                      <ChevronRight className={`w-5 h-5 text-slate-500 transition-transform duration-300 ${isDropdownOpen ? 'rotate-90' : ''}`} />
+                    </div>
+
+                    {isDropdownOpen && (
+                      <div className="absolute top-[110%] left-0 w-full bg-[#0a0f1d] border border-white/10 rounded-2xl p-2 shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                        {planOptions.map((plan) => (
+                          <div 
+                            key={plan}
+                            onClick={() => { setSelectedPlan(plan); setIsDropdownOpen(false); }}
+                            className="group flex items-center justify-between px-4 py-3 rounded-xl hover:bg-blue-600/20 hover:text-blue-400 text-slate-300 transition-all cursor-pointer mb-1 last:mb-0"
+                          >
+                            <span className="text-sm font-semibold">{plan}</span>
+                            {selectedPlan === plan && <Check className="w-4 h-4 text-blue-400" />}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   
                   <button disabled={loading} type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 rounded-xl transition-all active:scale-[0.98]">
                     {loading ? "Sending..." : "Submit Inquiry"}
@@ -129,7 +159,7 @@ export default function App() {
                   <Send className="text-emerald-400 w-10 h-10" />
                 </div>
                 <h3 className="text-3xl font-bold text-white mb-4">Inquiry Sent!</h3>
-                <p className="text-slate-400 mb-8 leading-relaxed">One of our risk advisors will contact you shortly.</p>
+                <p className="text-slate-400 mb-8 leading-relaxed">Thank you for reaching out. One of our risk advisors will contact you shortly.</p>
                 <button onClick={() => setSubmitted(false)} className="text-blue-400 font-bold text-sm uppercase tracking-widest hover:text-blue-300 transition">Send another request</button>
               </div>
             )}
