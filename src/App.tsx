@@ -60,7 +60,7 @@ export default function App() {
     setLoading(true);
     const formData = new FormData(event.target);
     formData.append("service", selectedPlan); 
-    formData.append("access_key", "YOUR_ACCESS_KEY_HERE"); // Replace with your key
+    formData.append("access_key", "d8e1068a-a04e-4d7d-90e5-633799a5a0bd");
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
