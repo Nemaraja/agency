@@ -30,8 +30,9 @@ export default function InsuranceWebsite() {
 
           <div id="quote" className="rounded-3xl border border-white/10 bg-slate-900/50 p-8 shadow-2xl backdrop-blur-xl">
             <h2 className="text-2xl font-bold mb-6">Request a Quote</h2>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <input type="text" placeholder="Full Name" className="w-full rounded-xl border border-white/10 bg-slate-800/50 px-4 py-3 outline-none focus:border-blue-500" />
+            <form className="space-y-4" action="https://api.web3forms.com/submit" method="POST">
+              <input type="hidden" name="access_key" value="d8e1068a-a04e-4d7d-90e5-633799a5a0bd" />
+              <input type="text" name="name" placeholder="Full Name" className="w-full rounded-xl border border-white/10 bg-slate-800/50 px-4 py-3 outline-none focus:border-blue-500" required />
               <input type="email" placeholder="Email" className="w-full rounded-xl border border-white/10 bg-slate-800/50 px-4 py-3 outline-none focus:border-blue-500" />
               <select className="w-full rounded-xl border border-white/10 bg-slate-800/50 px-4 py-3 outline-none">
                 <option>Life Insurance</option>
