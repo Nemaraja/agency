@@ -1,45 +1,54 @@
 import React, { useState } from 'react';
-import { 
-  ShieldCheck, HeartPulse, Car, Mail, X, 
-  CheckCircle2, ChevronRight, ArrowRight, 
-  MapPin, Phone, Shield, Send, Check
-} from 'lucide-react';
+import { Shield, LifeBuoy, Car, Heart, ShieldCheck, Mail, Phone, MapPin, CheckCircle2, Menu, X, ArrowRight } from 'lucide-react';
 
-export default function App() {
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [activePartner, setActivePartner] = useState(null);
-  
-  // Custom Dropdown States
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState("");
+function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
-  const partners = [
-    { name: "Pacific Cross", img: "Pacific-Cross.png", desc: "With over 70 years of regional expertise, Pacific Cross Philippines focuses on specialist medical and travel protection across Asia." },
-    { name: "Paramount", img: "Paramount.png", desc: "Founded in 1950, Paramount provides straightforward life and non-life insurance with a focus on quick, reliable claims." },
-    { name: "PhilBritish", img: "PhilBritish.png", desc: "Over 50 years of legacy in the Philippines, offering strong financial backing for property and marine insurance." },
-    { name: "Asia Insurance", img: "asia-insurance.png", desc: "A strategic venture bringing global standards of risk management and reliable coverage to the local market." },
-    { name: "Bethel", img: "bethel.png", desc: "Recognized for diverse non-life products and a strong focus on surety bonds for local business growth." },
-    { name: "Maagap", img: "maagap.png", desc: "Known for proactive protection and innovation in comprehensive motor and fire insurance solutions." }
-  ];
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setFormStatus('submitting');
+    const formData = new FormData(event.currentTarget);
 
-  const products = [
+    // This is the key for Web3Forms
+    formData.append("access_key", "YOUR_ACCESS_KEY_HERE");
+
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: json
+    }).then((res) => res.json());
+
+    if (res.success) {
+      setFormStatus('success');
+      (event.target as HTMLFormElement).reset();
+    } else {
+      setFormStatus('error');
+    }
+  };
+
+  const planOptions = [
     {
       id: 'life',
       title: 'Life Insurance',
-      icon: <ShieldCheck className="w-10 h-10 text-blue-400" />,
-      shortDesc: 'Protect your family’s future and peace of mind.',
-      longDesc: 'Life insurance is a promise. Our plans cover educational funds, estate planning, and long-term family security.',
-      benefits: ['Death Benefit', 'Critical Illness', 'Education Fund', 'Retirement']
+      icon: <LifeBuoy className="w-10 h-10 text-blue-400" />,
+      shortDesc: 'Secure your family\'s future and financial stability.',
+      longDesc: 'Comprehensive life coverage providing peace of mind through death benefits, investment components, and educational funding.',
+      benefits: ['Death Benefit', 'Living Benefits', 'Education Fund', 'Retirement Planning']
     },
     {
       id: 'hmo',
-      title: 'HMO / Health',
-      icon: <HeartPulse className="w-10 h-10 text-emerald-400" />,
-      shortDesc: 'Comprehensive medical protection for everyone.',
-      longDesc: 'Access the best hospitals and doctors through our premium healthcare partner network across the Philippines.',
-      benefits: ['In-patient Care', 'Emergency', 'Dental', 'Annual Physical Exams']
+      title: 'Health (HMO)',
+      icon: <Heart className="w-10 h-10 text-rose-400" />,
+      shortDesc: 'Quality healthcare access for you and your employees.',
+      longDesc: 'Extensive network of hospitals and doctors providing inpatient, outpatient, and emergency medical services.',
+      benefits: ['Inpatient Care', 'Outpatient Services', 'Emergency Coverage', 'Dental Options']
     },
     {
       id: 'non-life',
@@ -47,197 +56,211 @@ export default function App() {
       icon: <Car className="w-10 h-10 text-cyan-400" />,
       shortDesc: 'Protect your vehicles, property, and assets.',
       longDesc: 'Robust coverage for your cars, homes, and business operations against unforeseen risks and accidents.',
-      benefits: ['Car Insurance', 'Fire Insurance', 'Marine Cargo', 'Surety Bonds']
+      benefits: ['Motorcar (OR/CR Required)', 'Fire (Bldg & Contents)', 'Marine Cargo', 'Surety Bonds']
     }
   ];
 
-  const planOptions = ["Life Insurance", "HMO / Health Coverage", "Non-Life Insurance"];
-
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    if (!selectedPlan) return alert("Please select a protection plan");
-    
-    setLoading(true);
-    const formData = new FormData(event.target);
-    formData.append("service", selectedPlan); 
-    formData.append("access_key", "d8e1068a-a04e-4d7d-90e5-633799a5a0bd");
-
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData
-      });
-      const data = await response.json();
-      if (data.success) setSubmitted(true);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-100 font-sans selection:bg-blue-500/30 overflow-x-hidden">
-      
-      {/* NAVIGATION */}
-      <nav className="fixed top-0 w-full z-50 px-4 py-3">
-        <div className="max-w-7xl mx-auto flex items-center justify-between bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl px-4 py-3 shadow-2xl">
-          <div className="flex flex-col cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-            <span className="text-lg md:text-xl font-black tracking-tight bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent uppercase">BDRS</span>
-            <span className="text-[7px] md:text-[9px] uppercase tracking-widest text-slate-400 font-bold">Dependable Risk Solutions</span>
+    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-blue-500/30">
+      {/* Navigation */}
+      <nav className="fixed w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            <div className="flex items-center space-x-2">
+              <Shield className="w-8 h-8 text-blue-500" />
+              <div>
+                <span className="text-xl font-bold tracking-tight text-white">BDRS</span>
+                <span className="text-xs block text-blue-500 font-medium -mt-1">ASSOCIATES</span>
+              </div>
+            </div>
+            
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="#home" className="text-sm font-medium hover:text-blue-400 transition-colors">Home</a>
+              <a href="#services" className="text-sm font-medium hover:text-blue-400 transition-colors">Services</a>
+              <a href="#quote" className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-full text-sm font-bold transition-all transform hover:scale-105">Request Quote</a>
+            </div>
+
+            <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? <X /> : <Menu />}
+            </button>
           </div>
-          <a href="mailto:bdrsassociates@gmail.com" className="bg-blue-600 text-white px-5 py-2.5 rounded-xl text-xs font-black uppercase hover:bg-blue-500 transition active:scale-95">Contact Us</a>
         </div>
       </nav>
 
-      {/* HERO SECTION */}
-      <section className="relative pt-32 md:pt-48 pb-20 px-6 overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 md:w-[500px] h-64 md:h-[500px] bg-blue-600/10 rounded-full blur-[120px] -z-10" />
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
-          <div className="flex-1 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-6">
-              <Shield className="w-3 h-3" /> Licensed Insurance Agency
-            </div>
-            <h1 className="text-5xl md:text-7xl font-extrabold leading-[1.1] mb-6">
-              Building <br className="hidden md:block" />
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Dependable Risk Solutions</span>
+      {/* Hero Section */}
+      <section id="home" className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(37,99,235,0.1),transparent_50%)]" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+              Building Dependable <span className="text-blue-500">Risk Solutions</span>
             </h1>
-            <p className="text-xl md:text-2xl font-bold text-slate-300 mb-10">BDRS Associates Insurance Agency</p>
-            <a href="#products" className="inline-flex px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-bold transition shadow-lg shadow-blue-600/25 items-center gap-2">
-              Explore Plans <ArrowRight className="w-5 h-5" />
-            </a>
+            <p className="text-lg text-slate-400 mb-10 leading-relaxed">
+              Your trusted partner in the Philippines for comprehensive life, health, and non-life insurance coverage.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a href="#quote" className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-full font-bold transition-all flex items-center justify-center space-x-2 group">
+                <span>Start Your Quote</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="py-24 bg-slate-900/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-white mb-4">Our Protection Plans</h2>
+            <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full" />
           </div>
 
-          {/* FORM WITH CUSTOM DROPDOWN */}
-          <div id="quote" className="w-full lg:w-[450px] bg-slate-900/40 border border-white/10 p-8 rounded-[2.5rem] backdrop-blur-2xl shadow-2xl shrink-0 min-h-[520px] flex flex-col justify-center">
-            {!submitted ? (
-              <>
-                <h3 className="text-2xl font-bold mb-6 text-white text-left">Request a Quote</h3>
-                <form onSubmit={onSubmit} className="space-y-4">
-                  <input name="name" type="text" placeholder="Full Name" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
-                  <div className="grid grid-cols-2 gap-4">
-                    <input name="email" type="email" placeholder="Email" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
-                    <input name="phone" type="tel" placeholder="Mobile" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {planOptions.map((plan) => (
+              <div key={plan.id} className="p-8 rounded-2xl bg-slate-900 border border-white/5 hover:border-blue-500/50 transition-all group">
+                <div className="mb-6 transform group-hover:scale-110 transition-transform">
+                  {plan.icon}
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">{plan.title}</h3>
+                <p className="text-slate-400 mb-6 text-sm leading-relaxed">{plan.longDesc}</p>
+                <ul className="space-y-3">
+                  {plan.benefits.map((benefit, i) => (
+                    <li key={i} className="flex items-center text-sm text-slate-300">
+                      <CheckCircle2 className="w-4 h-4 text-blue-500 mr-2" />
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Quote Form Section */}
+      <section id="quote" className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto bg-slate-900 rounded-3xl border border-white/5 overflow-hidden shadow-2xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2">
+              <div className="p-8 lg:p-12 bg-blue-600">
+                <h2 className="text-3xl font-bold text-white mb-6">Request a Quote</h2>
+                <p className="text-blue-100 mb-10">Fill out the form and our associates will get back to you within 24 hours.</p>
+                
+                <div className="space-y-6">
+                  <div className="flex items-center space-x-4 text-white/90">
+                    <Mail className="w-5 h-5" />
+                    <span>bdrsassociates@gmail.com</span>
                   </div>
-                  
-                  {/* CUSTOM PREMIUM DROPDOWN */}
-                  <div className="relative">
-                    <div 
-                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                      className={`w-full bg-slate-800/50 border rounded-xl px-4 py-4 flex justify-between items-center cursor-pointer transition-all duration-300 ${isDropdownOpen ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-white/5'}`}
-                    >
-                      <span className={selectedPlan ? "text-white font-medium" : "text-slate-500"}>
-                        {selectedPlan || "Select a Protection Plan"}
-                      </span>
-                      <ChevronRight className={`w-5 h-5 text-slate-500 transition-transform duration-300 ${isDropdownOpen ? 'rotate-90' : ''}`} />
+                  <div className="flex items-center space-x-4 text-white/90">
+                    <Phone className="w-5 h-5" />
+                    <span>Contact your assigned agent</span>
+                  </div>
+                  <div className="flex items-center space-x-4 text-white/90">
+                    <MapPin className="w-5 h-5" />
+                    <span>Philippines</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-8 lg:p-12">
+                {formStatus === 'success' ? (
+                  <div className="text-center py-12">
+                    <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <ShieldCheck className="w-10 h-10 text-green-500" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-2">Request Received!</h3>
+                    <p className="text-slate-400">We'll review your details and contact you shortly.</p>
+                    <button onClick={() => setFormStatus('idle')} className="mt-8 text-blue-500 font-bold hover:text-blue-400">
+                      Send another request
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={onSubmit} className="space-y-5">
+                    {/* Basic Information */}
+                    <div className="grid grid-cols-1 gap-4">
+                      <input type="text" name="name" placeholder="Full Name" required className="w-full px-4 py-3 bg-slate-800 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white" />
+                      <input type="email" name="email" placeholder="Email Address" required className="w-full px-4 py-3 bg-slate-800 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white" />
+                      <input type="tel" name="phone" placeholder="Phone Number" required className="w-full px-4 py-3 bg-slate-800 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white" />
                     </div>
 
-                    {isDropdownOpen && (
-                      <div className="absolute top-[110%] left-0 w-full bg-[#0a0f1d] border border-white/10 rounded-2xl p-2 shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                        {planOptions.map((plan) => (
-                          <div 
-                            key={plan}
-                            onClick={() => { setSelectedPlan(plan); setIsDropdownOpen(false); }}
-                            className="group flex items-center justify-between px-4 py-3 rounded-xl hover:bg-blue-600/20 hover:text-blue-400 text-slate-300 transition-all cursor-pointer mb-1 last:mb-0"
-                          >
-                            <span className="text-sm font-semibold">{plan}</span>
-                            {selectedPlan === plan && <Check className="w-4 h-4 text-blue-400" />}
-                          </div>
-                        ))}
+                    {/* Insurance Selection */}
+                    <div className="space-y-2">
+                      <label className="text-sm text-slate-400 ml-1">Insurance Interest:</label>
+                      <select name="interest" required className="w-full px-4 py-3 bg-slate-800 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white appearance-none" onChange={(e) => {
+                        const motor = document.getElementById('motor-extra');
+                        const fire = document.getElementById('fire-extra');
+                        if(motor) motor.style.display = e.target.value === 'Non-Life: Motorcar' ? 'block' : 'none';
+                        if(fire) fire.style.display = e.target.value === 'Non-Life: Fire' ? 'block' : 'none';
+                      }}>
+                        <option value="">Select Service</option>
+                        <option value="Life Insurance">Life Insurance</option>
+                        <option value="Health/HMO">Health (HMO)</option>
+                        <option value="Non-Life: Motorcar">Non-Life: Motorcar</option>
+                        <option value="Non-Life: Fire">Non-Life: Fire</option>
+                        <option value="Non-Life: Other">Non-Life: Other</option>
+                      </select>
+                    </div>
+
+                    {/* Conditional: Motorcar Details */}
+                    <div id="motor-extra" style={{display: 'none'}} className="space-y-4 p-4 bg-slate-800/50 rounded-xl border border-blue-500/20">
+                      <p className="text-xs font-bold text-blue-400 uppercase tracking-wider">Motorcar Information</p>
+                      <input type="text" name="car_details" placeholder="Year, Make & Model" className="w-full px-4 py-3 bg-slate-800 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white" />
+                      <input type="text" name="plate_no" placeholder="Plate Number / Conduction Sticker" className="w-full px-4 py-3 bg-slate-800 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white" />
+                    </div>
+
+                    {/* Conditional: Fire Insurance Details */}
+                    <div id="fire-extra" style={{display: 'none'}} className="space-y-4 p-4 bg-slate-800/50 rounded-xl border border-orange-500/20">
+                      <p className="text-xs font-bold text-orange-400 uppercase tracking-wider">Property Information</p>
+                      <input type="text" name="property_address" placeholder="Property Address" className="w-full px-4 py-3 bg-slate-800 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white" />
+                      <div className="grid grid-cols-2 gap-2">
+                        <input type="text" name="bldg_value" placeholder="Bldg Value" className="px-4 py-3 bg-slate-800 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white" />
+                        <input type="text" name="contents_value" placeholder="Contents Value" className="px-4 py-3 bg-slate-800 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white" />
                       </div>
+                      <select name="occupancy_type" className="w-full px-4 py-3 bg-slate-800 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+                        <option value="Residential">Residential</option>
+                        <option value="Commercial">Commercial</option>
+                        <option value="Industrial">Industrial</option>
+                        <option value="Warehouse">Warehouse</option>
+                      </select>
+                    </div>
+
+                    <textarea name="message" rows={3} placeholder="Additional Message (Optional)" className="w-full px-4 py-3 bg-slate-800 border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"></textarea>
+                    
+                    {/* Privacy Note */}
+                    <p className="text-[10px] text-slate-500 italic text-center px-4">
+                      <strong>Data Privacy Note:</strong> All information provided is kept strictly confidential and used solely for generating your insurance quote in accordance with the Data Privacy Act.
+                    </p>
+
+                    <button 
+                      type="submit" 
+                      disabled={formStatus === 'submitting'}
+                      className="w-full py-4 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-800 rounded-xl font-bold transition-all transform hover:translate-y-[-2px] active:translate-y-[0px] shadow-lg shadow-blue-600/20"
+                    >
+                      {formStatus === 'submitting' ? 'Processing...' : 'Submit Quote Request'}
+                    </button>
+                    {formStatus === 'error' && (
+                      <p className="text-red-400 text-sm text-center">Something went wrong. Please try again.</p>
                     )}
-                  </div>
-                  
-                  <button disabled={loading} type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 rounded-xl transition-all active:scale-[0.98]">
-                    {loading ? "Sending..." : "Submit Inquiry"}
-                  </button>
-                </form>
-              </>
-            ) : (
-              <div className="text-center py-10 animate-in fade-in zoom-in duration-500">
-                <div className="w-20 h-20 bg-emerald-500/20 border border-emerald-500/50 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Send className="text-emerald-400 w-10 h-10" />
-                </div>
-                <h3 className="text-3xl font-bold text-white mb-4">Inquiry Sent!</h3>
-                <p className="text-slate-400 mb-8 leading-relaxed">Thank you for reaching out. One of our risk advisors will contact you shortly.</p>
-                <button onClick={() => setSubmitted(false)} className="text-blue-400 font-bold text-sm uppercase tracking-widest hover:text-blue-300 transition">Send another request</button>
+                  </form>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ACCREDITED PARTNERS SECTION */}
-      <section className="max-w-7xl mx-auto px-6 py-24 border-t border-white/5">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-black mb-4">Accredited Partners</h2>
-          <div className="h-1.5 w-24 bg-blue-500 mx-auto rounded-full mb-6"></div>
-          <p className="text-slate-400 italic">Tap a partner to reveal their expertise and history</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {partners.map((p, i) => (
-            <div 
-              key={i} 
-              onClick={() => setActivePartner(activePartner === i ? null : i)} 
-              className={`group p-8 rounded-[2.5rem] border transition-all duration-300 cursor-pointer
-                ${activePartner === i ? 'bg-slate-900 border-blue-500/50 shadow-2xl shadow-blue-500/10' : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.05]'}`}
-            >
-              <div className="bg-white p-6 rounded-3xl h-28 flex items-center justify-center mb-8 shadow-inner overflow-hidden">
-                <img src={`/agency/${p.img}`} alt={p.name} className="max-h-full object-contain group-hover:scale-110 transition-transform" />
-              </div>
-              <h4 className="text-xl font-bold mb-2 flex justify-between items-center text-white">
-                {p.name} <ChevronRight className={`w-5 h-5 transition-transform ${activePartner === i ? 'rotate-90 text-blue-500' : ''}`} />
-              </h4>
-              <div className={`overflow-hidden transition-all duration-500 ${activePartner === i ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <p className="text-sm text-slate-400 mt-4 leading-relaxed border-t border-white/10 pt-4">{p.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* PROTECTION PLANS SECTION */}
-      <section id="products" className="max-w-7xl mx-auto px-6 py-24 border-t border-white/5">
-        <h2 className="text-4xl font-bold text-center mb-16 text-white">Our Protection Plans</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <div key={product.id} onClick={() => setSelectedProduct(product)} className="bg-slate-900/50 border border-white/5 p-10 rounded-[2.5rem] hover:bg-slate-800 hover:border-blue-500/30 transition-all cursor-pointer group">
-              <div className="mb-6 group-hover:scale-110 transition-transform origin-left">{product.icon}</div>
-              <h4 className="text-2xl font-bold mb-4 text-white">{product.title}</h4>
-              <p className="text-slate-400 mb-8 leading-relaxed">{product.shortDesc}</p>
-              <span className="text-blue-400 font-bold text-xs uppercase tracking-widest flex items-center gap-2">View Details <ChevronRight className="w-4 h-4" /></span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* FOOTER */}
+      {/* Footer */}
       <footer className="py-12 border-t border-white/5 text-center">
-        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.4em]">© 2026 BDRS Associates Insurance Agency. All Rights Reserved.</p>
-      </footer>
-
-      {/* MODAL */}
-      {selectedProduct && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={() => setSelectedProduct(null)} />
-          <div className="relative bg-slate-900 border border-white/10 w-full max-w-lg rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-300">
-            <button onClick={() => setSelectedProduct(null)} className="absolute top-8 right-8 p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition text-white"><X className="w-5 h-5" /></button>
-            <div className="mb-6">{selectedProduct.icon}</div>
-            <h3 className="text-3xl font-bold mb-4 text-white">{selectedProduct.title}</h3>
-            <p className="text-slate-400 mb-8 leading-relaxed">{selectedProduct.longDesc}</p>
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              {selectedProduct.benefits.map((b, i) => (
-                <div key={i} className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-3">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span className="text-[10px] font-bold uppercase tracking-wide text-white">{b}</span>
-                </div>
-              ))}
-            </div>
-            <button onClick={() => { setSelectedProduct(null); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="w-full py-4 bg-blue-600 rounded-2xl font-bold hover:bg-blue-500 transition text-white">Inquire Now</button>
-          </div>
+        <div className="flex items-center justify-center space-x-2 mb-6">
+          <Shield className="w-6 h-6 text-blue-500" />
+          <span className="text-lg font-bold text-white tracking-tight">BDRS ASSOCIATES</span>
         </div>
-      )}
+        <p className="text-slate-500 text-sm">© {new Date().getFullYear()} BDRS Associates Insurance Agency. All rights reserved.</p>
+        <p className="text-slate-600 text-[10px] mt-2 italic">Building Dependable Risk Solutions for the Filipino Family.</p>
+      </footer>
     </div>
   );
 }
+
+export default App;
