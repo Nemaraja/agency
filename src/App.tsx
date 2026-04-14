@@ -52,6 +52,13 @@ export default function App() {
   ];
 
   const planOptions = ["Life Insurance", "HMO / Health Coverage", "Non-Life: Motorcar", "Non-Life: Fire"];
+  
+  // Car Brands for Dropdown
+  const carBrands = ["Toyota", "Mitsubishi", "Ford", "Nissan", "Suzuki", "Isuzu", "Honda", "Hyundai", "Kia", "MG", "Geely", "Chevrolet", "Mazda", "Subaru", "Other"];
+  
+  // Generate last 11 years (Current Year down to 10 years ago)
+  const currentYear = new Date().getFullYear();
+  const yearOptions = Array.from({ length: 11 }, (_, i) => currentYear - i);
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -152,8 +159,25 @@ export default function App() {
                   {selectedPlan === "Non-Life: Motorcar" && (
                     <div className="space-y-4 animate-in slide-in-from-top-2 duration-300 p-4 bg-blue-500/5 rounded-2xl border border-blue-500/20">
                       <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Motorcar Information</p>
-                      <input name="car_year_make" type="text" placeholder="Year / Make / Model" className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
-                      <input name="plate_no" type="text" placeholder="Plate No. / Conduction Sticker" className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
+                      
+                      <div className="grid grid-cols-2 gap-3">
+                        <select name="car_year" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-slate-300 transition">
+                          <option value="">Select Year</option>
+                          {yearOptions.map(year => (
+                            <option key={year} value={year}>{year}</option>
+                          ))}
+                        </select>
+                        
+                        <select name="car_make" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-slate-300 transition">
+                          <option value="">Select Make</option>
+                          {carBrands.map(brand => (
+                            <option key={brand} value={brand}>{brand}</option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <input name="car_model" type="text" placeholder="Type / Model (e.g., Vios 1.3 E)" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
+                      <input name="plate_no" type="text" placeholder="Plate No. / Conduction Sticker" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                     </div>
                   )}
 
@@ -161,12 +185,13 @@ export default function App() {
                   {selectedPlan === "Non-Life: Fire" && (
                     <div className="space-y-4 animate-in slide-in-from-top-2 duration-300 p-4 bg-orange-500/5 rounded-2xl border border-orange-500/20">
                       <p className="text-[10px] font-bold text-orange-400 uppercase tracking-widest">Property Information</p>
-                      <input name="fire_address" type="text" placeholder="Property Address" className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
+                      <input name="fire_address" type="text" placeholder="Property Address" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                       <div className="grid grid-cols-2 gap-3">
-                        <input name="building_value" type="text" placeholder="Bldg Value" className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
+                        <input name="building_value" type="text" placeholder="Bldg Value" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                         <input name="contents_value" type="text" placeholder="Contents Value" className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                       </div>
-                      <select name="occupancy" className="w-full bg-slate-800 border-white/5 rounded-xl px-4 py-3 text-slate-300 outline-none text-sm">
+                      <select name="occupancy" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-slate-300 transition">
+                        <option value="">Select Property Type</option>
                         <option value="Residential">Residential</option>
                         <option value="Commercial">Commercial</option>
                         <option value="Industrial">Industrial</option>
