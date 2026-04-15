@@ -27,6 +27,9 @@ export default function App() {
   const [isPropOpen, setIsPropOpen] = useState(false);
   const [selectedProp, setSelectedProp] = useState("");
 
+  // Terms and Conditions State
+  const [isTnCOpen, setIsTnCOpen] = useState(false);
+
   const partners = [
     { name: "Pacific Cross", img: "Pacific-Cross.png", desc: "With over 70 years of regional expertise, Pacific Cross Philippines focuses on specialist medical and travel protection across Asia." },
     { name: "Paramount", img: "Paramount.png", desc: "Founded in 1950, Paramount provides straightforward life and non-life insurance with a focus on quick, reliable claims." },
@@ -271,13 +274,33 @@ export default function App() {
                     </div>
                   )}
                   
-                  <div className="pt-2">
+                  {/* DATA PRIVACY AND EXPANDABLE T&C */}
+                  <div className="pt-2 space-y-3">
                     <p className="text-[9px] text-slate-500 italic leading-relaxed text-center">
                       <strong>Data Privacy:</strong> Your information is handled securely under the Data Privacy Act and used only for your quote request.
                     </p>
+                    
+                    <div className="bg-slate-800/30 border border-white/5 rounded-xl p-3 transition-colors hover:border-white/10">
+                      <div 
+                        onClick={() => setIsTnCOpen(!isTnCOpen)} 
+                        className="flex justify-between items-center cursor-pointer"
+                      >
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest hover:text-white transition-colors">Read Terms & Conditions</span>
+                        <ChevronRight className={`w-4 h-4 text-slate-500 transition-transform ${isTnCOpen ? 'rotate-90' : ''}`} />
+                      </div>
+                      
+                      <div className={`overflow-hidden transition-all duration-300 ${isTnCOpen ? 'max-h-40 mt-3 opacity-100' : 'max-h-0 opacity-0'}`}>
+                        <div className="text-[10px] text-slate-400 space-y-2 leading-relaxed pr-2 overflow-y-auto max-h-32">
+                          <p><strong>1. Accuracy of Information:</strong> You certify that the details provided are true and correct. Inaccurate information may affect your quote.</p>
+                          <p><strong>2. No Binding Coverage:</strong> Submitting this form does not bind or guarantee insurance coverage. A policy is only active once confirmed by an agent.</p>
+                          <p><strong>3. Communication:</strong> You authorize BDRS Associates to contact you via email or phone regarding this inquiry.</p>
+                          <p><strong>4. Data Processing:</strong> We collect and process your data strictly to provide you with insurance quotes and services as mandated by law.</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  <button disabled={loading} type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 rounded-xl transition-all active:scale-[0.98]">
+                  <button disabled={loading} type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 rounded-xl transition-all active:scale-[0.98] mt-2">
                     {loading ? "Sending..." : "Submit Inquiry"}
                   </button>
                 </form>
