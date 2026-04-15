@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   ShieldCheck, HeartPulse, Car, Mail, X, 
   CheckCircle2, ChevronRight, ArrowRight, 
-  MapPin, Phone, Shield, Send, Check, Menu
+  MapPin, Phone, Shield, Send, Check, Menu, ClipboardList
 } from 'lucide-react';
 
 export default function App() {
@@ -26,6 +26,10 @@ export default function App() {
 
   const [isPropOpen, setIsPropOpen] = useState(false);
   const [selectedProp, setSelectedProp] = useState("");
+
+  // Requirements States
+  const [isLifeReqOpen, setIsLifeReqOpen] = useState(false);
+  const [isHmoReqOpen, setIsHmoReqOpen] = useState(false);
 
   // Terms and Conditions State
   const [isTnCOpen, setIsTnCOpen] = useState(false);
@@ -66,12 +70,27 @@ export default function App() {
     }
   ];
 
+  const lifeRequirements = [
+    "Government Issued ID (Voter's, Passport, Driver's, etc.)",
+    "Proof of Income (Latest 3 months payslip/ITR)",
+    "PSA Birth Certificate",
+    "Marriage Contract (if applicable)",
+    "Health Statement / Medical Records (if required)"
+  ];
+
+  const hmoRequirements = [
+    "Accomplished Application Form",
+    "1x1 or 2x2 ID Picture",
+    "Clear Copy of 1 Valid ID",
+    "Birth Certificate (for dependents)",
+    "PhilHealth Number / MDR"
+  ];
+
   const planOptions = ["Life Insurance", "HMO / Health Coverage", "Non-Life: Motorcar", "Non-Life: Fire"];
   const propTypes = ["Residential", "Commercial", "Industrial", "Warehouse"];
   const currentYear = new Date().getFullYear();
   const yearOptions = Array.from({ length: 11 }, (_, i) => (currentYear - i).toString());
 
-  // Dependent Car Data Dictionary
   const carData = {
     "Toyota": ["Vios", "Wigo", "Innova", "Fortuner", "Hilux", "Rush", "Raize", "Avanza", "Hiace", "Corolla Altis", "Other Toyota"],
     "Mitsubishi": ["Mirage", "Mirage G4", "Xpander", "Montero Sport", "Strada", "L300", "Other Mitsubishi"],
@@ -182,13 +201,66 @@ export default function App() {
                     )}
                   </div>
 
+                  {/* LIFE INSURANCE REQUIREMENTS */}
+                  {selectedPlan === "Life Insurance" && (
+                    <div className="space-y-4 animate-in slide-in-from-top-2 duration-300 p-4 bg-blue-500/5 rounded-2xl border border-blue-500/20">
+                      <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest flex items-center gap-2">
+                        <ClipboardList className="w-3 h-3" /> Application Requirements
+                      </p>
+                      <div className="relative z-40">
+                        <div onClick={() => setIsLifeReqOpen(!isLifeReqOpen)} className={`w-full bg-slate-800/50 border rounded-xl px-4 py-3 flex justify-between items-center cursor-pointer transition-all duration-300 ${isLifeReqOpen ? 'border-blue-500' : 'border-white/5'}`}>
+                          <span className="text-xs text-white">View Required Documents</span>
+                          <ChevronRight className={`w-4 h-4 text-slate-500 transition-transform ${isLifeReqOpen ? 'rotate-90 text-blue-400' : ''}`} />
+                        </div>
+                        {isLifeReqOpen && (
+                          <div className="absolute top-[110%] left-0 w-full bg-[#0a0f1d] border border-white/10 rounded-xl p-3 shadow-2xl z-50">
+                            <ul className="space-y-2">
+                              {lifeRequirements.map((req, i) => (
+                                <li key={i} className="flex gap-2 items-start text-[10px] text-slate-300">
+                                  <Check className="w-3 h-3 text-blue-400 shrink-0 mt-0.5" />
+                                  <span>{req}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* HMO REQUIREMENTS */}
+                  {selectedPlan === "HMO / Health Coverage" && (
+                    <div className="space-y-4 animate-in slide-in-from-top-2 duration-300 p-4 bg-emerald-500/5 rounded-2xl border border-emerald-500/20">
+                      <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest flex items-center gap-2">
+                        <ClipboardList className="w-3 h-3" /> Enrollment Requirements
+                      </p>
+                      <div className="relative z-40">
+                        <div onClick={() => setIsHmoReqOpen(!isHmoReqOpen)} className={`w-full bg-slate-800/50 border rounded-xl px-4 py-3 flex justify-between items-center cursor-pointer transition-all duration-300 ${isHmoReqOpen ? 'border-emerald-500' : 'border-white/5'}`}>
+                          <span className="text-xs text-white">View Required Documents</span>
+                          <ChevronRight className={`w-4 h-4 text-slate-500 transition-transform ${isHmoReqOpen ? 'rotate-90 text-emerald-400' : ''}`} />
+                        </div>
+                        {isHmoReqOpen && (
+                          <div className="absolute top-[110%] left-0 w-full bg-[#0a0f1d] border border-white/10 rounded-xl p-3 shadow-2xl z-50">
+                            <ul className="space-y-2">
+                              {hmoRequirements.map((req, i) => (
+                                <li key={i} className="flex gap-2 items-start text-[10px] text-slate-300">
+                                  <Check className="w-3 h-3 text-emerald-400 shrink-0 mt-0.5" />
+                                  <span>{req}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
                   {/* MOTORCAR CONDITIONAL FIELDS */}
                   {selectedPlan === "Non-Life: Motorcar" && (
                     <div className="space-y-4 animate-in slide-in-from-top-2 duration-300 p-4 bg-blue-500/5 rounded-2xl border border-blue-500/20">
                       <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Motorcar Information</p>
                       
                       <div className="grid grid-cols-2 gap-3 relative z-40">
-                        {/* CUSTOM YEAR DROPDOWN */}
                         <div className="relative">
                           <div onClick={() => setIsYearOpen(!isYearOpen)} className={`w-full bg-slate-800/50 border rounded-xl px-4 py-3 flex justify-between items-center cursor-pointer transition-all duration-300 ${isYearOpen ? 'border-blue-500' : 'border-white/5'}`}>
                             <span className={`text-xs ${selectedYear ? "text-white" : "text-slate-500"}`}>{selectedYear || "Year"}</span>
@@ -203,7 +275,6 @@ export default function App() {
                           )}
                         </div>
 
-                        {/* CUSTOM MAKE DROPDOWN */}
                         <div className="relative">
                           <div onClick={() => setIsMakeOpen(!isMakeOpen)} className={`w-full bg-slate-800/50 border rounded-xl px-4 py-3 flex justify-between items-center cursor-pointer transition-all duration-300 ${isMakeOpen ? 'border-blue-500' : 'border-white/5'}`}>
                             <span className={`text-xs ${selectedMake ? "text-white" : "text-slate-500"}`}>{selectedMake || "Make"}</span>
@@ -214,7 +285,7 @@ export default function App() {
                               {carBrands.map(b => (
                                 <div key={b} onClick={() => { 
                                   setSelectedMake(b); 
-                                  setSelectedModel(""); // Reset model when make changes
+                                  setSelectedModel(""); 
                                   setIsMakeOpen(false); 
                                 }} className="px-4 py-2 rounded-lg hover:bg-blue-600/20 text-xs text-slate-300 cursor-pointer">{b}</div>
                               ))}
@@ -223,7 +294,6 @@ export default function App() {
                         </div>
                       </div>
 
-                      {/* DEPENDENT MODEL DROPDOWN */}
                       <div className="relative z-30">
                         <div 
                           onClick={() => selectedMake ? setIsModelOpen(!isModelOpen) : null} 
@@ -257,7 +327,6 @@ export default function App() {
                         <input name="contents_value" type="text" placeholder="Contents Value" className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                       </div>
                       
-                      {/* CUSTOM PROPERTY TYPE DROPDOWN */}
                       <div className="relative">
                         <div onClick={() => setIsPropOpen(!isPropOpen)} className={`w-full bg-slate-800/50 border rounded-xl px-4 py-3 flex justify-between items-center cursor-pointer transition-all duration-300 ${isPropOpen ? 'border-orange-500' : 'border-white/5'}`}>
                           <span className={`text-xs ${selectedProp ? "text-white" : "text-slate-500"}`}>{selectedProp || "Select Property Type"}</span>
