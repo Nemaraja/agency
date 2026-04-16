@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   ShieldCheck, HeartPulse, Car, Mail, X, 
   CheckCircle2, ChevronRight, ArrowRight, 
-  MapPin, Phone, Shield, Send, Check, Menu, ClipboardList
+  MapPin, Phone, Shield, Send, Check, Menu, ClipboardList,
+  Languages
 } from 'lucide-react';
 
 export default function App() {
+  // New State for Language Preference
+  const [showLanguageModal, setShowLanguageModal] = useState(true);
+  const [selectedLanguage, setSelectedLanguage] = useState("English");
+
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -183,14 +188,13 @@ export default function App() {
                     <input name="phone" type="tel" placeholder="Mobile" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                   </div>
                   
-                  {/* PROTECTION PLAN DROPDOWN */}
                   <div className="relative z-50">
                     <div onClick={() => setIsPlanOpen(!isPlanOpen)} className={`w-full bg-slate-800/50 border rounded-xl px-4 py-4 flex justify-between items-center cursor-pointer transition-all duration-300 ${isPlanOpen ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-white/5'}`}>
                       <span className={selectedPlan ? "text-white font-medium" : "text-slate-500"}>{selectedPlan || "Select a Protection Plan"}</span>
                       <ChevronRight className={`w-5 h-5 text-slate-500 transition-transform duration-300 ${isPlanOpen ? 'rotate-90' : ''}`} />
                     </div>
                     {isPlanOpen && (
-                      <div className="absolute top-[110%] left-0 w-full bg-[#0a0f1d] border border-white/10 rounded-2xl p-2 shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                      <div className="absolute top-[110%] left-0 w-full bg-[#0a0f1d] border border-white/10 rounded-2xl p-2 shadow-2xl z-50">
                         {planOptions.map((plan) => (
                           <div key={plan} onClick={() => { setSelectedPlan(plan); setIsPlanOpen(false); }} className="group flex items-center justify-between px-4 py-3 rounded-xl hover:bg-blue-600/20 hover:text-blue-400 text-slate-300 transition-all cursor-pointer mb-1 last:mb-0">
                             <span className="text-sm font-semibold">{plan}</span>
@@ -201,7 +205,7 @@ export default function App() {
                     )}
                   </div>
 
-                  {/* LIFE INSURANCE REQUIREMENTS */}
+                  {/* LIFE REQUIREMENTS */}
                   {selectedPlan === "Life Insurance" && (
                     <div className="space-y-4 animate-in slide-in-from-top-2 duration-300 p-4 bg-blue-500/5 rounded-2xl border border-blue-500/20">
                       <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest flex items-center gap-2">
@@ -255,13 +259,11 @@ export default function App() {
                     </div>
                   )}
 
-                  {/* MOTORCAR CONDITIONAL FIELDS */}
+                  {/* MOTORCAR FIELDS */}
                   {selectedPlan === "Non-Life: Motorcar" && (
                     <div className="space-y-4 animate-in slide-in-from-top-2 duration-300 p-4 bg-blue-500/5 rounded-2xl border border-blue-500/20">
                       <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Motorcar Information</p>
-                      
                       <div className="grid grid-cols-2 gap-3 relative z-40">
-                        {/* CUSTOM YEAR DROPDOWN */}
                         <div className="relative">
                           <div onClick={() => setIsYearOpen(!isYearOpen)} className={`w-full bg-slate-800/50 border rounded-xl px-4 py-3 flex justify-between items-center cursor-pointer transition-all duration-300 ${isYearOpen ? 'border-blue-500' : 'border-white/5'}`}>
                             <span className={`text-xs ${selectedYear ? "text-white" : "text-slate-500"}`}>{selectedYear || "Year"}</span>
@@ -275,8 +277,6 @@ export default function App() {
                             </div>
                           )}
                         </div>
-
-                        {/* CUSTOM MAKE DROPDOWN */}
                         <div className="relative">
                           <div onClick={() => setIsMakeOpen(!isMakeOpen)} className={`w-full bg-slate-800/50 border rounded-xl px-4 py-3 flex justify-between items-center cursor-pointer transition-all duration-300 ${isMakeOpen ? 'border-blue-500' : 'border-white/5'}`}>
                             <span className={`text-xs ${selectedMake ? "text-white" : "text-slate-500"}`}>{selectedMake || "Make"}</span>
@@ -285,26 +285,15 @@ export default function App() {
                           {isMakeOpen && (
                             <div className="absolute top-[110%] left-0 w-full bg-[#0a0f1d] border border-white/10 rounded-xl p-1 shadow-2xl z-50 max-h-40 overflow-y-auto">
                               {carBrands.map(b => (
-                                <div key={b} onClick={() => { 
-                                  setSelectedMake(b); 
-                                  setSelectedModel(""); // Reset model when make changes
-                                  setIsMakeOpen(false); 
-                                }} className="px-4 py-2 rounded-lg hover:bg-blue-600/20 text-xs text-slate-300 cursor-pointer">{b}</div>
+                                <div key={b} onClick={() => { setSelectedMake(b); setSelectedModel(""); setIsMakeOpen(false); }} className="px-4 py-2 rounded-lg hover:bg-blue-600/20 text-xs text-slate-300 cursor-pointer">{b}</div>
                               ))}
                             </div>
                           )}
                         </div>
                       </div>
-
-                      {/* DEPENDENT MODEL DROPDOWN */}
                       <div className="relative z-30">
-                        <div 
-                          onClick={() => selectedMake ? setIsModelOpen(!isModelOpen) : null} 
-                          className={`w-full bg-slate-800/50 border rounded-xl px-4 py-3 flex justify-between items-center transition-all duration-300 ${!selectedMake ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'} ${isModelOpen ? 'border-blue-500' : 'border-white/5'}`}
-                        >
-                          <span className={`text-sm ${selectedModel ? "text-white" : "text-slate-500"}`}>
-                            {!selectedMake ? "Select Make First" : (selectedModel || "Select Model")}
-                          </span>
+                        <div onClick={() => selectedMake ? setIsModelOpen(!isModelOpen) : null} className={`w-full bg-slate-800/50 border rounded-xl px-4 py-3 flex justify-between items-center transition-all duration-300 ${!selectedMake ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'} ${isModelOpen ? 'border-blue-500' : 'border-white/5'}`}>
+                          <span className={`text-sm ${selectedModel ? "text-white" : "text-slate-500"}`}>{!selectedMake ? "Select Make First" : (selectedModel || "Select Model")}</span>
                           <ChevronRight className={`w-4 h-4 text-slate-500 transition-transform ${isModelOpen ? 'rotate-90' : ''}`} />
                         </div>
                         {isModelOpen && selectedMake && (
@@ -315,12 +304,11 @@ export default function App() {
                           </div>
                         )}
                       </div>
-
                       <input name="plate_no" type="text" placeholder="Plate No. / Conduction Sticker" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                     </div>
                   )}
 
-                  {/* FIRE CONDITIONAL FIELDS */}
+                  {/* FIRE FIELDS */}
                   {selectedPlan === "Non-Life: Fire" && (
                     <div className="space-y-4 animate-in slide-in-from-top-2 duration-300 p-4 bg-orange-500/5 rounded-2xl border border-orange-500/20 relative z-40">
                       <p className="text-[10px] font-bold text-orange-400 uppercase tracking-widest">Property Information</p>
@@ -329,8 +317,6 @@ export default function App() {
                         <input name="building_value" type="text" placeholder="Bldg Value" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                         <input name="contents_value" type="text" placeholder="Contents Value" className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                       </div>
-                      
-                      {/* CUSTOM PROPERTY TYPE DROPDOWN */}
                       <div className="relative">
                         <div onClick={() => setIsPropOpen(!isPropOpen)} className={`w-full bg-slate-800/50 border rounded-xl px-4 py-3 flex justify-between items-center cursor-pointer transition-all duration-300 ${isPropOpen ? 'border-orange-500' : 'border-white/5'}`}>
                           <span className={`text-xs ${selectedProp ? "text-white" : "text-slate-500"}`}>{selectedProp || "Select Property Type"}</span>
@@ -347,16 +333,10 @@ export default function App() {
                     </div>
                   )}
                   
-                  {/* TERMS AND CONDITIONS LINK */}
                   <div className="pt-2 text-center relative z-20">
                     <p className="text-[10px] text-slate-500">
                       By submitting, you agree to our{' '}
-                      <span 
-                        onClick={() => setIsTnCOpen(true)} 
-                        className="font-bold text-blue-400 hover:text-blue-300 cursor-pointer underline underline-offset-2 transition-colors"
-                      >
-                        Terms and Conditions
-                      </span>
+                      <span onClick={() => setIsTnCOpen(true)} className="font-bold text-blue-400 hover:text-blue-300 cursor-pointer underline underline-offset-2 transition-colors">Terms and Conditions</span>
                     </p>
                   </div>
 
@@ -379,7 +359,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* ACCREDITED PARTNERS SECTION */}
+      {/* ACCREDITED PARTNERS */}
       <section className="max-w-7xl mx-auto px-6 py-24 border-t border-white/5">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-black mb-4 text-white">Accredited Partners</h2>
@@ -392,23 +372,19 @@ export default function App() {
               <div className="bg-white p-6 rounded-3xl h-28 flex items-center justify-center mb-8 shadow-inner overflow-hidden">
                 <img src={`/agency/${p.img}`} alt={p.name} className="max-h-full object-contain group-hover:scale-110 transition-transform" />
               </div>
-              <h4 className="text-xl font-bold mb-2 flex justify-between items-center text-white">
-                {p.name} <ChevronRight className={`w-5 h-5 transition-transform ${activePartner === i ? 'rotate-90 text-blue-500' : ''}`} />
-              </h4>
-              <div className={`overflow-hidden transition-all duration-500 ${activePartner === i ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <p className="text-sm text-slate-400 mt-4 leading-relaxed border-t border-white/10 pt-4">{p.desc}</p>
-              </div>
+              <h4 className="text-xl font-bold mb-2 flex justify-between items-center text-white">{p.name} <ChevronRight className={`w-5 h-5 transition-transform ${activePartner === i ? 'rotate-90 text-blue-500' : ''}`} /></h4>
+              <div className={`overflow-hidden transition-all duration-500 ${activePartner === i ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}><p className="text-sm text-slate-400 mt-4 leading-relaxed border-t border-white/10 pt-4">{p.desc}</p></div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* PROTECTION PLANS SECTION */}
+      {/* PLANS SECTION */}
       <section id="products" className="max-w-7xl mx-auto px-6 py-24 border-t border-white/5 text-left">
         <h2 className="text-4xl font-bold text-center mb-16 text-white">Our Protection Plans</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {products.map((product) => (
-            <div key={product.id} onClick={() => setSelectedProduct(product)} className="bg-slate-900/50 border border-white/5 p-10 rounded-[2.5rem] hover:bg-slate-800 hover:border-blue-500/30 transition-all cursor-pointer group">
+            <div key={product.id} onClick={() => setSelectedProduct(product)} className="bg-slate-900/50 border border-white/5 p-10 rounded-[2.5rem] hover:bg-slate-800 hover:border-blue-500/30 transition-all cursor-pointer group shadow-xl">
               <div className="mb-6 group-hover:scale-110 transition-transform origin-left">{product.icon}</div>
               <h4 className="text-2xl font-bold mb-4 text-white">{product.title}</h4>
               <p className="text-slate-400 mb-8 leading-relaxed">{product.shortDesc}</p>
@@ -419,11 +395,45 @@ export default function App() {
       </section>
 
       {/* FOOTER */}
-      <footer className="py-12 border-t border-white/5 text-center">
+      <footer className="py-12 border-t border-white/5 text-center mt-auto">
         <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.4em]">© 2026 BDRS Associates Insurance Agency. All Rights Reserved.</p>
       </footer>
 
-      {/* MODAL */}
+      {/* LANGUAGE PREFERENCE MODAL */}
+      {showLanguageModal && (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-slate-950/95 backdrop-blur-xl" />
+          <div className="relative bg-slate-900 border border-white/10 w-full max-w-sm rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-500 text-center">
+            <div className="w-16 h-16 bg-blue-600/20 border border-blue-500/30 rounded-2xl flex items-center justify-center mx-auto mb-8">
+              <Languages className="w-8 h-8 text-blue-400" />
+            </div>
+            <h3 className="text-2xl font-bold mb-2 text-white">Language Preference</h3>
+            <p className="text-slate-400 text-sm mb-8 leading-relaxed">What language do you prefer to use for your insurance consultation?</p>
+            
+            <div className="space-y-3 mb-8">
+              {["English", "Filipino / Tagalog"].map((lang) => (
+                <div 
+                  key={lang} 
+                  onClick={() => setSelectedLanguage(lang)}
+                  className={`w-full py-4 rounded-2xl border flex items-center justify-between px-6 cursor-pointer transition-all ${selectedLanguage === lang ? 'bg-blue-600/10 border-blue-500 text-white' : 'bg-white/5 border-white/5 text-slate-400 hover:bg-white/10'}`}
+                >
+                  <span className="font-bold text-sm">{lang}</span>
+                  {selectedLanguage === lang && <Check className="w-4 h-4 text-blue-400" />}
+                </div>
+              ))}
+            </div>
+
+            <button 
+              onClick={() => setShowLanguageModal(false)} 
+              className="w-full py-4 bg-blue-600 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-blue-500 transition text-white active:scale-95 shadow-lg shadow-blue-600/20"
+            >
+              Continue to Site
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* PRODUCT MODAL */}
       {selectedProduct && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={() => setSelectedProduct(null)} />
@@ -445,7 +455,7 @@ export default function App() {
         </div>
       )}
 
-      {/* TERMS AND CONDITIONS MODAL */}
+      {/* T&C MODAL */}
       {isTnCOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={() => setIsTnCOpen(false)} />
@@ -453,11 +463,11 @@ export default function App() {
             <button onClick={() => setIsTnCOpen(false)} className="absolute top-8 right-8 p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition text-white"><X className="w-5 h-5" /></button>
             <h3 className="text-3xl font-bold mb-6 text-white">Terms & Conditions</h3>
             <div className="text-sm text-slate-400 space-y-4 leading-relaxed overflow-y-auto max-h-96 pr-2">
-              <p><strong>1. Intermediary Status:</strong> You acknowledge that BDRS Associates acts strictly as a licensed insurance intermediary (broker), facilitating negotiations between you and the insurance provider. We are not an insurer and do not directly provide underwriting services or issue policies.</p>
-              <p><strong>2. Obligation of True Information:</strong> You certify that all details provided in this request are accurate, complete, and correct. You understand that any misrepresentation or omission may invalidate your quote, cause delays, or provide grounds for the insurer to cancel any subsequent policy.</p>
-              <p><strong>3. Non-Binding Nature:</strong> Submitting this inquiry or receiving an initial quotation does not bind coverage. No insurance policy is in effect until formally approved by the chosen carrier, the premium is paid in full, and the policy document is issued.</p>
-              <p><strong>4. Consent to Communicate:</strong> You expressly authorize BDRS Associates and its licensed agents to contact you using the provided email address and phone number for purposes related to this quote request and insurance product offerings.</p>
-              <p><strong>5. Authorization to Process Data:</strong> You grant BDRS Associates consent to collect and process the provided personal data solely for the purpose of generating insurance quotes and facilitating your policy application in compliance with the Data Privacy Act of 2012.</p>
+              <p><strong>1. Intermediary Status:</strong> You acknowledge that BDRS Associates acts strictly as a licensed insurance intermediary (broker), facilitating negotiations between you and the insurance provider.</p>
+              <p><strong>2. Obligation of True Information:</strong> You certify that all details provided in this request are accurate and complete. Misrepresentation may invalidate your quote or policy application.</p>
+              <p><strong>3. Non-Binding Nature:</strong> Submitting this inquiry does not bind coverage. No insurance policy is in effect until formally approved by the chosen carrier and the premium is paid.</p>
+              <p><strong>4. Consent to Communicate:</strong> You authorize BDRS Associates and its licensed agents to contact you regarding this quote request and insurance product offerings.</p>
+              <p><strong>5. Data Privacy:</strong> You grant BDRS Associates consent to collect and process the provided personal data solely for the purpose of facilitating your insurance application in compliance with laws.</p>
             </div>
             <button onClick={() => setIsTnCOpen(false)} className="w-full mt-8 py-4 bg-blue-600 rounded-2xl font-bold hover:bg-blue-500 transition text-white">I Understand</button>
           </div>
