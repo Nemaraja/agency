@@ -355,30 +355,17 @@ export default function App() {
                           </div>
                         )}
                         
-                        {/* DATA PRIVACY AND EXPANDABLE T&C */}
-                        <div className="pt-2 space-y-3">
-                          <p className="text-[9px] text-slate-500 italic leading-relaxed text-center">
-                            <strong>Data Privacy:</strong> Your information is handled securely under the Data Privacy Act and used only for your quote request.
-                          </p>
-                          
-                          <div className="bg-slate-800/30 border border-white/5 rounded-xl p-3 transition-colors hover:border-white/10">
-                            <div 
-                              onClick={() => setIsTnCOpen(!isTnCOpen)} 
-                              className="flex justify-between items-center cursor-pointer"
+                        {/* TERMS AND CONDITIONS LINK */}
+                        <div className="pt-2 text-center">
+                          <p className="text-[10px] text-slate-500">
+                            By submitting, you agree to our{' '}
+                            <span 
+                              onClick={() => setIsTnCOpen(true)} 
+                              className="font-bold text-blue-400 hover:text-blue-300 cursor-pointer underline underline-offset-2 transition-colors"
                             >
-                              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest hover:text-white transition-colors">Read Terms & Conditions</span>
-                              <ChevronRight className={`w-4 h-4 text-slate-500 transition-transform ${isTnCOpen ? 'rotate-90' : ''}`} />
-                            </div>
-                            
-                            <div className={`overflow-hidden transition-all duration-300 ${isTnCOpen ? 'max-h-40 mt-3 opacity-100' : 'max-h-0 opacity-0'}`}>
-                              <div className="text-[10px] text-slate-400 space-y-2 leading-relaxed pr-2 overflow-y-auto max-h-32">
-                                <p><strong>1. Accuracy of Information:</strong> You certify that the details provided are true and correct. Inaccurate information may affect your quote.</p>
-                                <p><strong>2. No Binding Coverage:</strong> Submitting this form does not bind or guarantee insurance coverage. A policy is only active once confirmed by an agent.</p>
-                                <p><strong>3. Communication:</strong> You authorize BDRS Associates to contact you via email or phone regarding this inquiry.</p>
-                                <p><strong>4. Data Processing:</strong> We collect and process your data strictly to provide you with insurance quotes and services as mandated by law.</p>
-                              </div>
-                            </div>
-                          </div>
+                              Terms and Conditions
+                            </span>
+                          </p>
                         </div>
 
                         <button disabled={loading} type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 rounded-xl transition-all active:scale-[0.98] mt-2">
@@ -452,7 +439,7 @@ export default function App() {
         <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.4em]">© 2026 BDRS Associates Insurance Agency. All Rights Reserved.</p>
       </footer>
 
-      {/* MODAL */}
+      {/* PRODUCT MODAL */}
       {selectedProduct && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={() => setSelectedProduct(null)} />
@@ -470,7 +457,6 @@ export default function App() {
               ))}
             </div>
             
-            {/* GET A QUOTE BUTTON */}
             <button 
               onClick={() => { 
                 setSelectedProduct(null); 
@@ -485,6 +471,25 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* TERMS AND CONDITIONS MODAL */}
+      {isTnCOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={() => setIsTnCOpen(false)} />
+          <div className="relative bg-slate-900 border border-white/10 w-full max-w-lg rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-300 text-left">
+            <button onClick={() => setIsTnCOpen(false)} className="absolute top-8 right-8 p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition text-white"><X className="w-5 h-5" /></button>
+            <h3 className="text-3xl font-bold mb-6 text-white">Terms & Conditions</h3>
+            <div className="text-sm text-slate-400 space-y-4 leading-relaxed overflow-y-auto max-h-96 pr-2">
+              <p><strong>1. Accuracy of Information:</strong> You certify that the details provided are true and correct. Inaccurate information may affect your quote.</p>
+              <p><strong>2. No Binding Coverage:</strong> Submitting this form does not bind or guarantee insurance coverage. A policy is only active once confirmed by an agent.</p>
+              <p><strong>3. Communication:</strong> You authorize BDRS Associates to contact you via email or phone regarding this inquiry.</p>
+              <p><strong>4. Data Processing:</strong> We collect and process your data strictly to provide you with insurance quotes and services as mandated by law.</p>
+            </div>
+            <button onClick={() => setIsTnCOpen(false)} className="w-full mt-8 py-4 bg-blue-600 rounded-2xl font-bold hover:bg-blue-500 transition text-white">I Understand</button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
