@@ -393,7 +393,7 @@ export default function App() {
           </div>
 
           {/* FORM */}
-          <div id="quote" className="w-full lg:w-[450px] bg-slate-900/40 border border-white/10 p-5 sm:p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] backdrop-blur-2xl shadow-2xl shrink-0 min-h-[520px] flex flex-col justify-center z-10"
+          <div id="quote" className="w-full lg:w-[450px] bg-slate-900/40 border border-white/10 p-5 sm:p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] backdrop-blur-2xl shadow-2xl shrink-0 min-h-[520px] flex flex-col justify-center z-10">>>>
             {!submitted ? (
               <>
                 <h3 className="text-2xl font-bold mb-6 text-white text-left">{t.requestQuote}</h3>
