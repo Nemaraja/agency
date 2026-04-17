@@ -636,13 +636,15 @@ export default function App() {
           <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={() => setIsTnCOpen(false)} />
           <div className="relative bg-slate-900 border border-white/10 w-full max-w-lg rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-300 text-left">
             <button onClick={() => setIsTnCOpen(false)} className="absolute top-8 right-8 p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition text-white"><X className="w-5 h-5" /></button>
-            <h3 className="text-3xl font-bold mb-6 text-white">{t.tnc}</h3>
+            <h3 className="text-3xl font-bold mb-6 text-white">Terms & Conditions</h3>
             <div className="text-sm text-slate-400 space-y-4 leading-relaxed overflow-y-auto max-h-96 pr-2">
               <p><strong>1. Intermediary Status:</strong> You acknowledge that BDRS Associates acts strictly as a licensed insurance intermediary (broker), facilitating negotiations between you and the insurance provider. We are not an insurer and do not directly provide underwriting services or issue policies.</p>
               <p><strong>2. Obligation of True Information:</strong> You certify that all details provided in this request are accurate, complete, and correct. You understand that any misrepresentation or omission may invalidate your quote, cause delays, or provide grounds for the insurer to cancel any subsequent policy.</p>
-              <p><strong>3. Non-Binding Nature:</strong> Submitting this inquiry or receiving an initial quotation does not bind coverage. No insurance policy is in effect until formally approved by the chosen carrier, the premium is paid in full, and a policy document is officially issued.</p>
+              <p><strong>3. Non-Binding Nature:</strong> Submitting this inquiry or receiving an initial quotation does not bind coverage. No insurance policy is in effect until formally approved by the chosen carrier, the premium is paid in full, and the policy document is issued.</p>
+              <p><strong>4. Consent to Communicate:</strong> You expressly authorize BDRS Associates and its licensed agents to contact you using the provided email address and phone number for purposes related to this quote request and insurance product offerings.</p>
+              <p><strong>5. Authorization to Process Data:</strong> You grant BDRS Associates consent to collect and process the provided personal data solely for the purpose of generating insurance quotes and facilitating your policy application in compliance with the Data Privacy Act of 2012.</p>
             </div>
-            <button onClick={() => setIsTnCOpen(false)} className="w-full mt-8 py-4 bg-blue-600 rounded-2xl font-bold hover:bg-blue-500 transition text-white">{t.understand}</button>
+            <button onClick={() => setIsTnCOpen(false)} className="w-full mt-8 py-4 bg-blue-600 rounded-2xl font-bold hover:bg-blue-500 transition text-white">I Understand</button>
           </div>
         </div>
       )}
