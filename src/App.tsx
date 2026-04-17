@@ -353,7 +353,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-100 font-sans selection:bg-blue-500/30 overflow-x-hidden">
+    <div className="min-h-screen bg-[#020617] text-slate-100 font-sans selection:bg-blue-500/30 overflow-x-hidden overflow-y-visible">
       
       {/* NAVIGATION */}
       <nav className="fixed top-0 w-full z-50 px-4 py-3">
@@ -372,16 +372,16 @@ export default function App() {
       </nav>
 
       {/* HERO SECTION */}
-      <section className="relative pt-32 md:pt-48 pb-20 px-6 overflow-hidden">
+      <section className="relative pt-28 md:pt-48 pb-16 md:pb-20 px-4 sm:px-6 overflow-hidden">
         <div className="absolute top-0 right-0 w-64 md:w-[500px] h-64 md:h-[500px] bg-blue-600/10 rounded-full blur-[120px] -z-10" />
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 md:gap-16 items-center">
           <div className="flex-1 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-6">
               <Shield className="w-3 h-3" /> Licensed Insurance Agency
             </div>
             
             {/* THIS REMAINS ENGLISH ONLY AS REQUESTED */}
-            <h1 className="text-5xl md:text-7xl font-extrabold leading-[1.1] mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-7xl font-extrabold leading-[1.1] mb-6">
               Building <br className="hidden md:block" />
               <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Dependable Risk Solutions</span>
             </h1>
@@ -393,13 +393,13 @@ export default function App() {
           </div>
 
           {/* FORM */}
-          <div id="quote" className="w-full lg:w-[450px] bg-slate-900/40 border border-white/10 p-8 rounded-[2.5rem] backdrop-blur-2xl shadow-2xl shrink-0 min-h-[520px] flex flex-col justify-center z-10">
+          <div id="quote" className="w-full lg:w-[450px] bg-slate-900/40 border border-white/10 p-5 sm:p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] backdrop-blur-2xl shadow-2xl shrink-0 min-h-[520px] flex flex-col justify-center z-10"
             {!submitted ? (
               <>
                 <h3 className="text-2xl font-bold mb-6 text-white text-left">{t.requestQuote}</h3>
                 <form onSubmit={onSubmit} className="space-y-4 text-left">
                   <input name="name" type="text" placeholder={t.fullName} required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <input name="email" type="email" placeholder={t.email} required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                     <input name="phone" type="tel" placeholder={t.mobile} required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                   </div>
@@ -481,7 +481,7 @@ export default function App() {
                     <div className="space-y-4 animate-in slide-in-from-top-2 duration-300 p-4 bg-blue-500/5 rounded-2xl border border-blue-500/20">
                       <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">{t.motorTitle}</p>
                       
-                      <div className="grid grid-cols-2 gap-3 relative z-40">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 relative z-40">
                         {/* CUSTOM YEAR DROPDOWN */}
                         <div className="relative">
                           <div onClick={() => setIsYearOpen(!isYearOpen)} className={`w-full bg-slate-800/50 border rounded-xl px-4 py-3 flex justify-between items-center cursor-pointer transition-all duration-300 ${isYearOpen ? 'border-blue-500' : 'border-white/5'}`}>
@@ -546,7 +546,7 @@ export default function App() {
                     <div className="space-y-4 animate-in slide-in-from-top-2 duration-300 p-4 bg-orange-500/5 rounded-2xl border border-orange-500/20 relative z-40">
                       <p className="text-[10px] font-bold text-orange-400 uppercase tracking-widest">{t.propTitle}</p>
                       <input name="fire_address" type="text" placeholder={t.propAddress} required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <input name="building_value" type="text" placeholder={t.bldgValue} required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                         <input name="contents_value" type="text" placeholder={t.contValue} className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                       </div>
@@ -607,7 +607,7 @@ export default function App() {
           <div className="h-1.5 w-24 bg-blue-500 mx-auto rounded-full mb-6"></div>
           <p className="text-slate-400 italic mb-16">{t.partnerSub}</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8 text-left">
           {partners.map((p, i) => (
             <div key={i} onClick={() => setActivePartner(activePartner === i ? null : i)} className={`group p-8 rounded-[2.5rem] border transition-all duration-300 cursor-pointer ${activePartner === i ? 'bg-slate-900 border-blue-500/50 shadow-2xl shadow-blue-500/10' : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.05]'}`}>
               <div className="bg-white p-6 rounded-3xl h-28 flex items-center justify-center mb-8 shadow-inner overflow-hidden">
@@ -666,7 +666,7 @@ export default function App() {
       {showPlansModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={() => setShowPlansModal(false)} />
-          <div className="relative bg-slate-900 border border-white/10 w-full max-w-5xl rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-300 text-left max-h-[90vh] overflow-y-auto">
+          <div className="relative bg-slate-900 border border-white/10 w-full max-w-5xl rounded-[2rem] md:rounded-[3rem] p-5 sm:p-6 md:p-10 shadow-2xl animate-in zoom-in duration-300 text-left max-h-[90vh] overflow-y-auto"
             <button onClick={() => setShowPlansModal(false)} className="absolute top-8 right-8 p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition text-white z-10"><X className="w-5 h-5" /></button>
             
             <h2 className="text-4xl font-bold text-center mb-12 text-white">{t.ourPlans}</h2>
