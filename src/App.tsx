@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { 
-  ShieldCheck, HeartPulse, Car, Mail, X, 
-  CheckCircle2, ChevronRight, ArrowRight, 
+import {
+  ShieldCheck, HeartPulse, Car, Mail, X,
+  CheckCircle2, ChevronRight, ArrowRight,
   MapPin, Phone, Shield, Send, Check, Menu, ClipboardList,
   Languages
 } from 'lucide-react';
@@ -149,8 +149,8 @@ export default function App() {
   const [showLanguageModal, setShowLanguageModal] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState("English");
   const t = translations[selectedLanguage] || translations["English"];
-
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [showPlansModal, setShowPlansModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [activePartner, setActivePartner] = useState(null);
@@ -158,16 +158,12 @@ export default function App() {
   // Custom Dropdown States
   const [isPlanOpen, setIsPlanOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState("");
-
   const [isYearOpen, setIsYearOpen] = useState(false);
   const [selectedYear, setSelectedYear] = useState("");
-
   const [isMakeOpen, setIsMakeOpen] = useState(false);
   const [selectedMake, setSelectedMake] = useState("");
-
   const [isModelOpen, setIsModelOpen] = useState(false);
   const [selectedModel, setSelectedModel] = useState("");
-
   const [isPropOpen, setIsPropOpen] = useState(false);
   const [selectedProp, setSelectedProp] = useState("");
 
@@ -192,7 +188,7 @@ export default function App() {
       id: 'life',
       title: 'Life Insurance',
       icon: <ShieldCheck className="w-10 h-10 text-blue-400" />,
-      shortDesc: 'Protect your family’s future and peace of mind.',
+      shortDesc: 'Protect your family\'s future and peace of mind.',
       longDesc: 'Life insurance is a promise. Our plans cover educational funds, estate planning, and long-term family security.',
       benefits: ['Death Benefit', 'Critical Illness', 'Education Fund', 'Retirement']
     },
@@ -232,6 +228,7 @@ export default function App() {
 
   const planOptions = ["Life Insurance", "HMO / Health Coverage", "Non-Life: Motorcar", "Non-Life: Fire"];
   const propTypes = ["Residential", "Commercial", "Industrial", "Warehouse"];
+
   const currentYear = new Date().getFullYear();
   const yearOptions = Array.from({ length: 11 }, (_, i) => (currentYear - i).toString());
 
@@ -262,7 +259,7 @@ export default function App() {
     
     setLoading(true);
     const formData = new FormData(event.target);
-    formData.append("service", selectedPlan); 
+    formData.append("service", selectedPlan);
     formData.append("car_year", selectedYear);
     formData.append("car_make", selectedMake);
     formData.append("car_model", selectedModel);
@@ -318,9 +315,9 @@ export default function App() {
             </h1>
             
             <p className="text-xl md:text-2xl font-bold text-slate-300 mb-10">{t.heroSub}</p>
-            <a href="#products" className="inline-flex px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-bold transition shadow-lg shadow-blue-600/25 items-center gap-2">
+            <button onClick={() => setShowPlansModal(true)} className="inline-flex px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-bold transition shadow-lg shadow-blue-600/25 items-center gap-2">
               {t.explore} <ArrowRight className="w-5 h-5" />
-            </a>
+            </button>
           </div>
 
           {/* FORM */}
@@ -437,10 +434,10 @@ export default function App() {
                           {isMakeOpen && (
                             <div className="absolute top-[110%] left-0 w-full bg-[#0a0f1d] border border-white/10 rounded-xl p-1 shadow-2xl z-50 max-h-40 overflow-y-auto">
                               {carBrands.map(b => (
-                                <div key={b} onClick={() => { 
-                                  setSelectedMake(b); 
+                                <div key={b} onClick={() => {
+                                  setSelectedMake(b);
                                   setSelectedModel(""); // Reset model when make changes
-                                  setIsMakeOpen(false); 
+                                  setIsMakeOpen(false);
                                 }} className="px-4 py-2 rounded-lg hover:bg-blue-600/20 text-xs text-slate-300 cursor-pointer">{b}</div>
                               ))}
                             </div>
@@ -450,8 +447,8 @@ export default function App() {
 
                       {/* DEPENDENT MODEL DROPDOWN */}
                       <div className="relative z-30">
-                        <div 
-                          onClick={() => selectedMake ? setIsModelOpen(!isModelOpen) : null} 
+                        <div
+                          onClick={() => selectedMake ? setIsModelOpen(!isModelOpen) : null}
                           className={`w-full bg-slate-800/50 border rounded-xl px-4 py-3 flex justify-between items-center transition-all duration-300 ${!selectedMake ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'} ${isModelOpen ? 'border-blue-500' : 'border-white/5'}`}
                         >
                           <span className={`text-sm ${selectedModel ? "text-white" : "text-slate-500"}`}>
@@ -503,8 +500,8 @@ export default function App() {
                   <div className="pt-2 text-center relative z-20">
                     <p className="text-[10px] text-slate-500">
                       {t.agree}{' '}
-                      <span 
-                        onClick={() => setIsTnCOpen(true)} 
+                      <span
+                        onClick={() => setIsTnCOpen(true)}
                         className="font-bold text-blue-400 hover:text-blue-300 cursor-pointer underline underline-offset-2 transition-colors"
                       >
                         {t.tnc}
@@ -582,8 +579,8 @@ export default function App() {
             
             <div className="space-y-3 mb-8">
               {Object.keys(translations).map((lang) => (
-                <div 
-                  key={lang} 
+                <div
+                  key={lang}
                   onClick={() => setSelectedLanguage(lang)}
                   className={`w-full py-4 rounded-2xl border flex items-center justify-between px-6 cursor-pointer transition-all ${selectedLanguage === lang ? 'bg-blue-600/10 border-blue-500 text-white shadow-lg' : 'bg-white/5 border-white/5 text-slate-400 hover:bg-white/10'}`}
                 >
@@ -593,8 +590,8 @@ export default function App() {
               ))}
             </div>
 
-            <button 
-              onClick={() => setShowLanguageModal(false)} 
+            <button
+              onClick={() => setShowLanguageModal(false)}
               className="w-full py-4 bg-blue-600 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-blue-500 transition text-white shadow-lg shadow-blue-600/20"
             >
               {t.contSite}
@@ -607,6 +604,47 @@ export default function App() {
       <footer className="py-12 border-t border-white/5 text-center">
         <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.4em]">© 2026 BDRS Associates Insurance Agency. All Rights Reserved.</p>
       </footer>
+
+      {/* PLANS MODAL - NEW */}
+      {showPlansModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={() => setShowPlansModal(false)} />
+          <div className="relative bg-slate-900 border border-white/10 w-full max-w-5xl rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-300 text-left max-h-[90vh] overflow-y-auto">
+            <button onClick={() => setShowPlansModal(false)} className="absolute top-8 right-8 p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition text-white z-10"><X className="w-5 h-5" /></button>
+            
+            <h2 className="text-4xl font-bold text-center mb-12 text-white">{t.ourPlans}</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {products.map((product) => (
+                <div key={product.id} className="bg-slate-800/50 border border-white/10 p-8 rounded-[2rem] hover:border-blue-500/30 transition-all">
+                  <div className="mb-6">{product.icon}</div>
+                  <h4 className="text-2xl font-bold mb-4 text-white">{product.title}</h4>
+                  <p className="text-slate-400 mb-6 leading-relaxed">{product.longDesc}</p>
+                  
+                  <div className="grid grid-cols-2 gap-3 mb-6">
+                    {product.benefits.map((b, i) => (
+                      <div key={i} className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span className="text-[10px] font-bold uppercase tracking-wide text-white">{b}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <button 
+                    onClick={() => { 
+                      setShowPlansModal(false); 
+                      window.scrollTo({top: 0, behavior: 'smooth'}); 
+                    }} 
+                    className="w-full py-3 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition text-white text-sm"
+                  >
+                    {t.inquireNow}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* PRODUCT MODAL */}
       {selectedProduct && (
