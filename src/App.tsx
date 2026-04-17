@@ -42,7 +42,7 @@ const translations = {
     contSite: "Continue to Site",
     lifeTitle: "Life Insurance",
     lifeShort: "Protect your family's future and peace of mind.",
-    lifeLong: "Life insurance is a promise. Our plans cover educational funds, estate planning, and long-term family security.",
+    hmoLong: "Our health maintenance plans provide comprehensive medical coverage including hospitalization, emergency care, preventive services, and access to an extensive network of accredited hospitals and physicians nationwide.",
     lifeBenefit1: "Death Benefit",
     lifeBenefit2: "Critical Illness",
     lifeBenefit3: "Education Fund",
@@ -56,7 +56,7 @@ const translations = {
     hmoBenefit4: "Annual Physical Exams",
     nonLifeTitle: "Non-Life",
     nonLifeShort: "Protect your vehicles, property, and assets.",
-    nonLifeLong: "Robust coverage for your cars, homes, and business operations against unforeseen risks and accidents.",
+    nonLifeLong: "Our non-life insurance solutions cover motorcar, property, fire, marine, and liability risks. These plans are structured to protect your physical assets and financial interests against accidents, natural disasters, and unforeseen losses.",
     nonLifeBenefit1: "Motorcar (OR/CR)",
     nonLifeBenefit2: "Fire Insurance",
     nonLifeBenefit3: "Marine Cargo",
@@ -97,21 +97,21 @@ const translations = {
     contSite: "Magpatuloy sa Site",
     lifeTitle: "Life Insurance",
     lifeShort: "Protektahan ang kinabukasan at kapakanan ng inyong pamilya.",
-    lifeLong: "Ang life insurance ay isang pangako. Ang aming mga plano ay sumasaklaw sa pondo para sa edukasyon, estate planning, at pangmatagalang seguridad ng pamilya.",
+    lifeLong: "Ang aming life insurance ay nagbibigay ng pangmatagalang seguridad sa pananalapi kabilang ang income protection, education funding, at proteksyon laban sa critical illness.",
     lifeBenefit1: "Death Benefit",
     lifeBenefit2: "Critical Illness",
     lifeBenefit3: "Pondo para sa Edukasyon",
     lifeBenefit4: "Retirement",
     hmoTitle: "HMO / Health",
     hmoShort: "Komprehensibong proteksyong medikal para sa lahat.",
-    hmoLong: "Makakapag-access sa pinakamahusay na mga ospital at doktor sa pamamagitan ng aming premium healthcare partner network sa buong Pilipinas.",
+    hmoLong: "Nagbibigay ang aming HMO plans ng komprehensibong medical coverage kabilang ang hospitalization, emergency care, at access sa malawak na network ng ospital at doktor.",
     hmoBenefit1: "In-patient Care",
     hmoBenefit2: "Emergency",
     hmoBenefit3: "Dental",
     hmoBenefit4: "Annual Physical Exams",
     nonLifeTitle: "Non-Life",
     nonLifeShort: "Protektahan ang inyong sasakyan, ari-arian, at assets.",
-    nonLifeLong: "Matatag na coverage para sa inyong mga sasakyan, tahanan, at negosyo laban sa mga hindi inaasahang panganib at aksidente.",
+    nonLifeLong: "Ang aming non-life insurance ay sumasaklaw sa motorcar, property, fire, at iba pang panganib upang maprotektahan ang inyong assets laban sa aksidente at sakuna.",
     nonLifeBenefit1: "Motorcar (OR/CR)",
     nonLifeBenefit2: "Fire Insurance",
     nonLifeBenefit3: "Marine Cargo",
@@ -152,21 +152,21 @@ const translations = {
     contSite: "进入网站",
     lifeTitle: "人寿保险",
     lifeShort: "保护您家人的未来和内心的平静。",
-    lifeLong: "人寿保险是一种承诺。我们的计划涵盖教育基金、遗产规划和长期家庭安全。",
+    lifeLong: "我们的人寿保险提供长期财务保障，包括收入替代、教育基金及重大疾病保障。",
     lifeBenefit1: "身故赔偿",
     lifeBenefit2: "重大疾病",
     lifeBenefit3: "教育基金",
     lifeBenefit4: "退休金",
     hmoTitle: "健康保险",
     hmoShort: "为每个人提供全面的医疗保护。",
-    hmoLong: "通过我们在菲律宾的优质医疗合作伙伴网络，获得最好的医院和医生服务。",
+    hmoLong: "我们的医疗保险涵盖住院、紧急护理及全国医院网络服务。",
     hmoBenefit1: "住院护理",
     hmoBenefit2: "急诊",
     hmoBenefit3: "牙科",
     hmoBenefit4: "年度体检",
     nonLifeTitle: "非人寿保险",
     nonLifeShort: "保护您的车辆、财产和资产。",
-    nonLifeLong: "为您的汽车、房屋和商业运营提供强大的保障，应对不可预见的风险和事故。",
+    nonLifeLong: "我们的非人寿保险涵盖汽车、财产及火灾等风险，保护您的资产安全。",
     nonLifeBenefit1: "汽车保险 (OR/CR)",
     nonLifeBenefit2: "火灾保险",
     nonLifeBenefit3: "海运货物",
@@ -207,21 +207,21 @@ const translations = {
     contSite: "サイトへ進む",
     lifeTitle: "生命保険",
     lifeShort: "ご家族の未来と安心を守ります。",
-    lifeLong: "生命保険は約束です。教育資金、相続計画、長期的な家族の安全を保障するプランをご用意しています。",
+    lifeLong: "当社の生命保険は、収入保障、教育資金、重大疾病保障など長期的な経済的保護を提供します。",
     lifeBenefit1: "死亡保険金",
     lifeBenefit2: "重大疾病",
     lifeBenefit3: "教育資金",
     lifeBenefit4: "退職金",
     hmoTitle: "健康保険",
     hmoShort: "すべての人に包括的な医療保護を。",
-    hmoLong: "フィリピン全土のプレミアム医療パートナーネットワークを通じて、最高の病院と医師にアクセスできます。",
+    hmoLong: "当社の医療保険は、入院、緊急医療、全国の医療ネットワークへのアクセスを含みます。",
     hmoBenefit1: "入院治療",
     hmoBenefit2: "緊急時",
     hmoBenefit3: "歯科",
     hmoBenefit4: "年次健康診断",
     nonLifeTitle: "損害保険",
     nonLifeShort: "車両、財産、資産を保護します。",
-    nonLifeLong: "予期せぬリスクや事故から、お車、住宅、ビジネス運営を強固に保護します。",
+    nonLifeLong: "損害保険では、自動車や財産、火災などのリスクから資産を保護します。",
     nonLifeBenefit1: "自動車保険 (OR/CR)",
     nonLifeBenefit2: "火災保険",
     nonLifeBenefit3: "海上貨物",
@@ -259,13 +259,67 @@ export default function App() {
   const [isTnCOpen, setIsTnCOpen] = useState(false);
 
   const partners = [
-    { name: "Pacific Cross", img: "Pacific-Cross.png", desc: "With over 70 years of regional expertise, Pacific Cross Philippines focuses on specialist medical and travel protection across Asia." },
-    { name: "Paramount", img: "Paramount.png", desc: "Founded in 1950, Paramount provides straightforward life and non-life insurance with a focus on quick, reliable claims." },
-    { name: "PhilBritish", img: "PhilBritish.png", desc: "Over 50 years of legacy in the Philippines, offering strong financial backing for property and marine insurance." },
-    { name: "Asia Insurance", img: "asia-insurance.png", desc: "A strategic venture bringing global standards of risk management and reliable coverage to the local market." },
-    { name: "Bethel", img: "bethel.png", desc: "Recognized for diverse non-life products and a strong focus on surety bonds for local business growth." },
-    { name: "Maagap", img: "maagap.png", desc: "Known for proactive protection and innovation in comprehensive motor and fire insurance solutions." }
-  ];
+  {
+    name: "Pacific Cross",
+    img: "Pacific-Cross.png",
+    desc: {
+      English: "Pacific Cross Insurance, formerly known as State Bonding and Insurance Company, has over 70 years of experience in the Philippines. It specializes in medical, travel, and expatriate health insurance, offering comprehensive healthcare coverage with access to an extensive regional and international provider network.",
+      "Filipino / Tagalog": "Ang Pacific Cross Insurance, na dating kilala bilang State Bonding and Insurance Company, ay may mahigit 70 taong karanasan sa Pilipinas. Dalubhasa ito sa medical, travel, at expatriate health insurance, na nagbibigay ng malawak na access sa mga ospital at doktor sa loob at labas ng bansa.",
+      "中文 (Chinese)": "Pacific Cross保险公司前身为State Bonding and Insurance Company，在菲律宾拥有超过70年的经验。专注于医疗、旅行及外籍人士健康保险，提供覆盖广泛的本地及国际医疗网络服务。",
+      "日本語 (Japanese)": "Pacific Crossは旧State Bonding and Insurance Companyとして設立され、フィリピンで70年以上の実績を持ちます。医療保険や旅行保険、海外居住者向け保険を専門とし、国内外の医療ネットワークへのアクセスを提供しています。"
+    }
+  },
+  {
+    name: "Paramount",
+    img: "Paramount.png",
+    desc: {
+      English: "Paramount Life & General Insurance Corporation, established in 1950, is one of the Philippines’ most trusted insurers. It provides both life and non-life insurance solutions, focusing on financial protection, estate preservation, and efficient claims service for individuals and businesses.",
+      "Filipino / Tagalog": "Ang Paramount Life & General Insurance Corporation ay itinatag noong 1950 at isa sa mga pinakatiwalaang insurer sa Pilipinas. Nag-aalok ito ng life at non-life insurance na nakatuon sa financial protection at mabilis na claims processing.",
+      "中文 (Chinese)": "Paramount人寿与综合保险公司成立于1950年，是菲律宾最值得信赖的保险公司之一。提供人寿及非人寿保险，专注于财务保障及高效理赔服务。",
+      "日本語 (Japanese)": "Paramount Life & General Insuranceは1950年設立のフィリピン有数の保険会社であり、生命保険および損害保険の両方を提供し、資産保全と迅速な保険金支払いに注力しています。"
+    }
+  },
+  {
+    name: "PhilBritish",
+    img: "PhilBritish.png",
+    desc: {
+      English: "Philippine British Assurance Company, Inc. (PhilBritish) has been operating for over 50 years, providing strong non-life insurance solutions. It is recognized for its financial stability and expertise in fire, marine cargo, and property insurance across commercial and industrial sectors.",
+      "Filipino / Tagalog": "Ang PhilBritish ay mahigit 50 taon nang nagbibigay ng non-life insurance sa Pilipinas. Kilala ito sa matatag na serbisyo sa fire, marine cargo, at property insurance para sa negosyo at industriya.",
+      "中文 (Chinese)": "PhilBritish保险公司拥有超过50年的运营历史，专注于非人寿保险，尤其是在火灾险、海运货物险及财产保险方面具有丰富经验。",
+      "日本語 (Japanese)": "PhilBritishは50年以上の歴史を持つ損害保険会社で、火災保険や海上貨物保険、不動産保険において高い専門性と安定性を誇ります。"
+    }
+  },
+  {
+    name: "Asia Insurance",
+    img: "asia-insurance.png",
+    desc: {
+      English: "Asia Insurance Corporation, founded in 1957, is one of the leading non-life insurers in the Philippines. It delivers comprehensive risk protection products including motorcar, fire, marine, and casualty insurance, backed by decades of underwriting expertise.",
+      "Filipino / Tagalog": "Ang Asia Insurance Corporation ay itinatag noong 1957 at isa sa mga nangungunang non-life insurer sa Pilipinas. Nag-aalok ito ng motorcar, fire, marine, at casualty insurance na may matibay na karanasan sa underwriting.",
+      "中文 (Chinese)": "Asia Insurance成立于1957年，是菲律宾领先的非人寿保险公司之一，提供汽车、火灾、海运及责任保险等全面保障。",
+      "日本語 (Japanese)": "Asia Insuranceは1957年設立の損害保険会社で、自動車保険、火災保険、海上保険など幅広いリスク保障商品を提供しています。"
+    }
+  },
+  {
+    name: "Bethel",
+    img: "bethel.png",
+    desc: {
+      English: "Bethel General Insurance and Surety Corporation is known for its strong presence in surety bonds and non-life insurance. It supports businesses through contract bonds, performance guarantees, and asset protection solutions tailored for enterprise growth.",
+      "Filipino / Tagalog": "Ang Bethel General Insurance ay kilala sa surety bonds at non-life insurance. Tumutulong ito sa mga negosyo sa pamamagitan ng contract bonds at financial guarantees.",
+      "中文 (Chinese)": "Bethel保险公司在保证金保险及非人寿保险领域具有优势，为企业提供合同保证及风险保障方案。",
+      "日本語 (Japanese)": "Bethelは保証保険（Surety Bonds）に強みを持つ保険会社で、企業向けに契約保証やリスク保護サービスを提供しています。"
+    }
+  },
+  {
+    name: "Maagap",
+    img: "maagap.png",
+    desc: {
+      English: "Maagap Insurance, Inc. is a dynamic non-life insurance provider in the Philippines, recognized for its innovative and responsive service. It offers comprehensive motorcar, fire, and property insurance solutions designed to deliver fast claims and reliable protection.",
+      "Filipino / Tagalog": "Ang Maagap Insurance ay kilala sa mabilis at makabagong serbisyo sa non-life insurance, kabilang ang motorcar at fire insurance.",
+      "中文 (Chinese)": "Maagap保险公司以其快速响应和创新服务著称，提供汽车及财产保险等全面保障。",
+      "日本語 (Japanese)": "Maagap Insuranceは迅速な対応と革新的なサービスで知られる損害保険会社で、自動車保険や火災保険を提供しています。"
+    }
+  }
+];
 
   const products = [
     {
@@ -617,7 +671,9 @@ export default function App() {
                 {p.name} <ChevronRight className={`w-5 h-5 transition-transform ${activePartner === i ? 'rotate-90 text-blue-500' : ''}`} />
               </h4>
               <div className={`overflow-hidden transition-all duration-500 ${activePartner === i ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <p className="text-sm text-slate-400 mt-4 leading-relaxed border-t border-white/10 pt-4">{p.desc}</p>
+                <p className="text-sm text-slate-400 mt-4 leading-relaxed border-t border-white/10 pt-4">
+  {p.desc[selectedLanguage] || p.desc["English"]}
+</p>
               </div>
             </div>
           ))}
