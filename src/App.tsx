@@ -39,7 +39,28 @@ const translations = {
     viewDetails: "View Details",
     inquireNow: "Inquire Now",
     understand: "I Understand",
-    contSite: "Continue to Site"
+    contSite: "Continue to Site",
+    lifeTitle: "Life Insurance",
+    lifeShort: "Protect your family's future and peace of mind.",
+    lifeLong: "Life insurance is a promise. Our plans cover educational funds, estate planning, and long-term family security.",
+    lifeBenefit1: "Death Benefit",
+    lifeBenefit2: "Critical Illness",
+    lifeBenefit3: "Education Fund",
+    lifeBenefit4: "Retirement",
+    hmoTitle: "HMO / Health",
+    hmoShort: "Comprehensive medical protection for everyone.",
+    hmoLong: "Access the best hospitals and doctors through our premium healthcare partner network across the Philippines.",
+    hmoBenefit1: "In-patient Care",
+    hmoBenefit2: "Emergency",
+    hmoBenefit3: "Dental",
+    hmoBenefit4: "Annual Physical Exams",
+    nonLifeTitle: "Non-Life",
+    nonLifeShort: "Protect your vehicles, property, and assets.",
+    nonLifeLong: "Robust coverage for your cars, homes, and business operations against unforeseen risks and accidents.",
+    nonLifeBenefit1: "Motorcar (OR/CR)",
+    nonLifeBenefit2: "Fire Insurance",
+    nonLifeBenefit3: "Marine Cargo",
+    nonLifeBenefit4: "Surety Bonds"
   },
   "Filipino / Tagalog": {
     heroSub: "BDRS Associates Insurance Agency",
@@ -73,10 +94,31 @@ const translations = {
     viewDetails: "Tingnan ang Detalye",
     inquireNow: "Mag-inquire Ngayon",
     understand: "Naiintindihan Ko",
-    contSite: "Magpatuloy sa Site"
+    contSite: "Magpatuloy sa Site",
+    lifeTitle: "Life Insurance",
+    lifeShort: "Protektahan ang kinabukasan at kapakanan ng inyong pamilya.",
+    lifeLong: "Ang life insurance ay isang pangako. Ang aming mga plano ay sumasaklaw sa pondo para sa edukasyon, estate planning, at pangmatagalang seguridad ng pamilya.",
+    lifeBenefit1: "Death Benefit",
+    lifeBenefit2: "Critical Illness",
+    lifeBenefit3: "Pondo para sa Edukasyon",
+    lifeBenefit4: "Retirement",
+    hmoTitle: "HMO / Health",
+    hmoShort: "Komprehensibong proteksyong medikal para sa lahat.",
+    hmoLong: "Makakapag-access sa pinakamahusay na mga ospital at doktor sa pamamagitan ng aming premium healthcare partner network sa buong Pilipinas.",
+    hmoBenefit1: "In-patient Care",
+    hmoBenefit2: "Emergency",
+    hmoBenefit3: "Dental",
+    hmoBenefit4: "Annual Physical Exams",
+    nonLifeTitle: "Non-Life",
+    nonLifeShort: "Protektahan ang inyong sasakyan, ari-arian, at assets.",
+    nonLifeLong: "Matatag na coverage para sa inyong mga sasakyan, tahanan, at negosyo laban sa mga hindi inaasahang panganib at aksidente.",
+    nonLifeBenefit1: "Motorcar (OR/CR)",
+    nonLifeBenefit2: "Fire Insurance",
+    nonLifeBenefit3: "Marine Cargo",
+    nonLifeBenefit4: "Surety Bonds"
   },
   "中文 (Chinese)": {
-    heroSub: "BDRS Associates 保险代理公司",
+    heroSub: "BDRS Associates Insurance Agency",
     explore: "探索计划",
     requestQuote: "请求报价",
     fullName: "全名",
@@ -107,10 +149,31 @@ const translations = {
     viewDetails: "查看详情",
     inquireNow: "立即咨询",
     understand: "我明白了",
-    contSite: "进入网站"
+    contSite: "进入网站",
+    lifeTitle: "人寿保险",
+    lifeShort: "保护您家人的未来和内心的平静。",
+    lifeLong: "人寿保险是一种承诺。我们的计划涵盖教育基金、遗产规划和长期家庭安全。",
+    lifeBenefit1: "身故赔偿",
+    lifeBenefit2: "重大疾病",
+    lifeBenefit3: "教育基金",
+    lifeBenefit4: "退休金",
+    hmoTitle: "健康保险",
+    hmoShort: "为每个人提供全面的医疗保护。",
+    hmoLong: "通过我们在菲律宾的优质医疗合作伙伴网络，获得最好的医院和医生服务。",
+    hmoBenefit1: "住院护理",
+    hmoBenefit2: "急诊",
+    hmoBenefit3: "牙科",
+    hmoBenefit4: "年度体检",
+    nonLifeTitle: "非人寿保险",
+    nonLifeShort: "保护您的车辆、财产和资产。",
+    nonLifeLong: "为您的汽车、房屋和商业运营提供强大的保障，应对不可预见的风险和事故。",
+    nonLifeBenefit1: "汽车保险 (OR/CR)",
+    nonLifeBenefit2: "火灾保险",
+    nonLifeBenefit3: "海运货物",
+    nonLifeBenefit4: "保证金"
   },
   "日本語 (Japanese)": {
-    heroSub: "BDRS Associates 保険代理店",
+    heroSub: "BDRS Associates Insurance Agency",
     explore: "プランを見る",
     requestQuote: "見積もり依頼",
     fullName: "氏名",
@@ -141,7 +204,28 @@ const translations = {
     viewDetails: "詳細を見る",
     inquireNow: "今すぐ問い合わせる",
     understand: "了解しました",
-    contSite: "サイトへ進む"
+    contSite: "サイトへ進む",
+    lifeTitle: "生命保険",
+    lifeShort: "ご家族の未来と安心を守ります。",
+    lifeLong: "生命保険は約束です。教育資金、相続計画、長期的な家族の安全を保障するプランをご用意しています。",
+    lifeBenefit1: "死亡保険金",
+    lifeBenefit2: "重大疾病",
+    lifeBenefit3: "教育資金",
+    lifeBenefit4: "退職金",
+    hmoTitle: "健康保険",
+    hmoShort: "すべての人に包括的な医療保護を。",
+    hmoLong: "フィリピン全土のプレミアム医療パートナーネットワークを通じて、最高の病院と医師にアクセスできます。",
+    hmoBenefit1: "入院治療",
+    hmoBenefit2: "緊急時",
+    hmoBenefit3: "歯科",
+    hmoBenefit4: "年次健康診断",
+    nonLifeTitle: "損害保険",
+    nonLifeShort: "車両、財産、資産を保護します。",
+    nonLifeLong: "予期せぬリスクや事故から、お車、住宅、ビジネス運営を強固に保護します。",
+    nonLifeBenefit1: "自動車保険 (OR/CR)",
+    nonLifeBenefit2: "火災保険",
+    nonLifeBenefit3: "海上貨物",
+    nonLifeBenefit4: "保証金"
   }
 };
 
@@ -186,27 +270,15 @@ export default function App() {
   const products = [
     {
       id: 'life',
-      title: 'Life Insurance',
-      icon: <ShieldCheck className="w-10 h-10 text-blue-400" />,
-      shortDesc: 'Protect your family\'s future and peace of mind.',
-      longDesc: 'Life insurance is a promise. Our plans cover educational funds, estate planning, and long-term family security.',
-      benefits: ['Death Benefit', 'Critical Illness', 'Education Fund', 'Retirement']
+      icon: <ShieldCheck className="w-10 h-10 text-blue-400" />
     },
     {
       id: 'hmo',
-      title: 'HMO / Health',
-      icon: <HeartPulse className="w-10 h-10 text-emerald-400" />,
-      shortDesc: 'Comprehensive medical protection for everyone.',
-      longDesc: 'Access the best hospitals and doctors through our premium healthcare partner network across the Philippines.',
-      benefits: ['In-patient Care', 'Emergency', 'Dental', 'Annual Physical Exams']
+      icon: <HeartPulse className="w-10 h-10 text-emerald-400" />
     },
     {
       id: 'non-life',
-      title: 'Non-Life',
-      icon: <Car className="w-10 h-10 text-cyan-400" />,
-      shortDesc: 'Protect your vehicles, property, and assets.',
-      longDesc: 'Robust coverage for your cars, homes, and business operations against unforeseen risks and accidents.',
-      benefits: ['Motorcar (OR/CR)', 'Fire Insurance', 'Marine Cargo', 'Surety Bonds']
+      icon: <Car className="w-10 h-10 text-cyan-400" />
     }
   ];
 
@@ -314,7 +386,7 @@ export default function App() {
               <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Dependable Risk Solutions</span>
             </h1>
             
-            <p className="text-xl md:text-2xl font-bold text-slate-300 mb-10">{t.heroSub}</p>
+            <p className="text-xl md:text-2xl font-bold text-slate-300 mb-10">BDRS Associates Insurance Agency</p>
             <button onClick={() => setShowPlansModal(true)} className="inline-flex px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-bold transition shadow-lg shadow-blue-600/25 items-center gap-2">
               {t.explore} <ArrowRight className="w-5 h-5" />
             </button>
@@ -552,21 +624,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* PROTECTION PLANS SECTION */}
-      <section id="products" className="max-w-7xl mx-auto px-6 py-24 border-t border-white/5 text-left">
-        <h2 className="text-4xl font-bold text-center mb-16 text-white">{t.ourPlans}</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <div key={product.id} onClick={() => setSelectedProduct(product)} className="bg-slate-900/50 border border-white/5 p-10 rounded-[2.5rem] hover:bg-slate-800 hover:border-blue-500/30 transition-all cursor-pointer group">
-              <div className="mb-6 group-hover:scale-110 transition-transform origin-left">{product.icon}</div>
-              <h4 className="text-2xl font-bold mb-4 text-white">{product.title}</h4>
-              <p className="text-slate-400 mb-8 leading-relaxed">{product.shortDesc}</p>
-              <span className="text-blue-400 font-bold text-xs uppercase tracking-widest flex items-center gap-2">{t.viewDetails} <ChevronRight className="w-4 h-4" /></span>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* LANGUAGE MODAL */}
       {showLanguageModal && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
@@ -605,7 +662,7 @@ export default function App() {
         <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.4em]">© 2026 BDRS Associates Insurance Agency. All Rights Reserved.</p>
       </footer>
 
-      {/* PLANS MODAL - NEW */}
+      {/* PLANS MODAL */}
       {showPlansModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={() => setShowPlansModal(false)} />
@@ -615,32 +672,113 @@ export default function App() {
             <h2 className="text-4xl font-bold text-center mb-12 text-white">{t.ourPlans}</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {products.map((product) => (
-                <div key={product.id} className="bg-slate-800/50 border border-white/10 p-8 rounded-[2rem] hover:border-blue-500/30 transition-all">
-                  <div className="mb-6">{product.icon}</div>
-                  <h4 className="text-2xl font-bold mb-4 text-white">{product.title}</h4>
-                  <p className="text-slate-400 mb-6 leading-relaxed">{product.longDesc}</p>
-                  
-                  <div className="grid grid-cols-2 gap-3 mb-6">
-                    {product.benefits.map((b, i) => (
-                      <div key={i} className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                        <span className="text-[10px] font-bold uppercase tracking-wide text-white">{b}</span>
-                      </div>
-                    ))}
+              {/* Life Insurance */}
+              <div className="bg-slate-800/50 border border-white/10 p-8 rounded-[2rem] hover:border-blue-500/30 transition-all">
+                <div className="mb-6">{products[0].icon}</div>
+                <h4 className="text-2xl font-bold mb-4 text-white">{t.lifeTitle}</h4>
+                <p className="text-slate-400 mb-6 leading-relaxed">{t.lifeLong}</p>
+                
+                <div className="grid grid-cols-2 gap-3 mb-6">
+                  <div className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-[10px] font-bold uppercase tracking-wide text-white">{t.lifeBenefit1}</span>
                   </div>
-                  
-                  <button 
-                    onClick={() => { 
-                      setShowPlansModal(false); 
-                      window.scrollTo({top: 0, behavior: 'smooth'}); 
-                    }} 
-                    className="w-full py-3 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition text-white text-sm"
-                  >
-                    {t.inquireNow}
-                  </button>
+                  <div className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-[10px] font-bold uppercase tracking-wide text-white">{t.lifeBenefit2}</span>
+                  </div>
+                  <div className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-[10px] font-bold uppercase tracking-wide text-white">{t.lifeBenefit3}</span>
+                  </div>
+                  <div className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-[10px] font-bold uppercase tracking-wide text-white">{t.lifeBenefit4}</span>
+                  </div>
                 </div>
-              ))}
+                
+                <button 
+                  onClick={() => { 
+                    setShowPlansModal(false); 
+                    window.scrollTo({top: 0, behavior: 'smooth'}); 
+                  }} 
+                  className="w-full py-3 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition text-white text-sm"
+                >
+                  {t.inquireNow}
+                </button>
+              </div>
+
+              {/* HMO / Health */}
+              <div className="bg-slate-800/50 border border-white/10 p-8 rounded-[2rem] hover:border-blue-500/30 transition-all">
+                <div className="mb-6">{products[1].icon}</div>
+                <h4 className="text-2xl font-bold mb-4 text-white">{t.hmoTitle}</h4>
+                <p className="text-slate-400 mb-6 leading-relaxed">{t.hmoLong}</p>
+                
+                <div className="grid grid-cols-2 gap-3 mb-6">
+                  <div className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-[10px] font-bold uppercase tracking-wide text-white">{t.hmoBenefit1}</span>
+                  </div>
+                  <div className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-[10px] font-bold uppercase tracking-wide text-white">{t.hmoBenefit2}</span>
+                  </div>
+                  <div className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-[10px] font-bold uppercase tracking-wide text-white">{t.hmoBenefit3}</span>
+                  </div>
+                  <div className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-[10px] font-bold uppercase tracking-wide text-white">{t.hmoBenefit4}</span>
+                  </div>
+                </div>
+                
+                <button 
+                  onClick={() => { 
+                    setShowPlansModal(false); 
+                    window.scrollTo({top: 0, behavior: 'smooth'}); 
+                  }} 
+                  className="w-full py-3 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition text-white text-sm"
+                >
+                  {t.inquireNow}
+                </button>
+              </div>
+
+              {/* Non-Life */}
+              <div className="bg-slate-800/50 border border-white/10 p-8 rounded-[2rem] hover:border-blue-500/30 transition-all">
+                <div className="mb-6">{products[2].icon}</div>
+                <h4 className="text-2xl font-bold mb-4 text-white">{t.nonLifeTitle}</h4>
+                <p className="text-slate-400 mb-6 leading-relaxed">{t.nonLifeLong}</p>
+                
+                <div className="grid grid-cols-2 gap-3 mb-6">
+                  <div className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-[10px] font-bold uppercase tracking-wide text-white">{t.nonLifeBenefit1}</span>
+                  </div>
+                  <div className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-[10px] font-bold uppercase tracking-wide text-white">{t.nonLifeBenefit2}</span>
+                  </div>
+                  <div className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-[10px] font-bold uppercase tracking-wide text-white">{t.nonLifeBenefit3}</span>
+                  </div>
+                  <div className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-[10px] font-bold uppercase tracking-wide text-white">{t.nonLifeBenefit4}</span>
+                  </div>
+                </div>
+                
+                <button 
+                  onClick={() => { 
+                    setShowPlansModal(false); 
+                    window.scrollTo({top: 0, behavior: 'smooth'}); 
+                  }} 
+                  className="w-full py-3 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition text-white text-sm"
+                >
+                  {t.inquireNow}
+                </button>
+              </div>
             </div>
           </div>
         </div>
