@@ -393,7 +393,7 @@ export default function App() {
           </div>
 
           {/* FORM */}
-          <div id="quote" className="w-full lg:w-[450px] bg-slate-900/40 border border-white/10 p-5 sm:p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] backdrop-blur-2xl shadow-2xl shrink-0 min-h-[520px] flex flex-col justify-center z-10">>>>
+          <div id="quote" className="w-full lg:w-[450px] bg-slate-900/40 border border-white/10 p-5 sm:p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] backdrop-blur-2xl shadow-2xl shrink-0 min-h-[520px] flex flex-col justify-center z-10">
             {!submitted ? (
               <>
                 <h3 className="text-2xl font-bold mb-6 text-white text-left">{t.requestQuote}</h3>
@@ -666,7 +666,7 @@ export default function App() {
       {showPlansModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={() => setShowPlansModal(false)} />
-          <div className="relative bg-slate-900 border border-white/10 w-full max-w-5xl rounded-[2rem] md:rounded-[3rem] p-5 sm:p-6 md:p-10 shadow-2xl animate-in zoom-in duration-300 text-left max-h-[90vh] overflow-y-auto"
+          <div className="relative bg-slate-900 border border-white/10 w-full max-w-5xl rounded-[2rem] md:rounded-[3rem] p-5 sm:p-6 md:p-10 shadow-2xl animate-in zoom-in duration-300 text-left max-h-[90vh] overflow-y-auto">
             <button onClick={() => setShowPlansModal(false)} className="absolute top-8 right-8 p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition text-white z-10"><X className="w-5 h-5" /></button>
             
             <h2 className="text-4xl font-bold text-center mb-12 text-white">{t.ourPlans}</h2>
