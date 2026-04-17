@@ -671,14 +671,14 @@ export default function App() {
             
             <h2 className="text-4xl font-bold text-center mb-12 text-white">{t.ourPlans}</h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {/* Life Insurance */}
-              <div className="bg-slate-800/50 border border-white/10 p-8 rounded-[2rem] hover:border-blue-500/30 transition-all">
+              <div className="bg-slate-800/50 border border-white/10 p-5 sm:p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] hover:border-blue-500/30 transition-all">
                 <div className="mb-6">{products[0].icon}</div>
                 <h4 className="text-2xl font-bold mb-4 text-white">{t.lifeTitle}</h4>
-                <p className="text-slate-400 mb-6 leading-relaxed">{t.lifeLong}</p>
+                <p className="text-slate-400 text-sm sm:text-base mb-6 leading-relaxed">{t.lifeLong}</p>
                 
-                <div className="grid grid-cols-2 gap-3 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-6">
                   <div className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                     <span className="text-[10px] font-bold uppercase tracking-wide text-white">{t.lifeBenefit1}</span>
@@ -702,19 +702,19 @@ export default function App() {
                     setShowPlansModal(false); 
                     window.scrollTo({top: 0, behavior: 'smooth'}); 
                   }} 
-                  className="w-full py-3 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition text-white text-sm"
+                  className="w-full py-3 mt-2 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition text-white text-sm"
                 >
                   {t.inquireNow}
                 </button>
               </div>
 
               {/* HMO / Health */}
-              <div className="bg-slate-800/50 border border-white/10 p-8 rounded-[2rem] hover:border-blue-500/30 transition-all">
+              <div className="bg-slate-800/50 border border-white/10 p-5 sm:p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] hover:border-blue-500/30 transition-all">
                 <div className="mb-6">{products[1].icon}</div>
                 <h4 className="text-2xl font-bold mb-4 text-white">{t.hmoTitle}</h4>
-                <p className="text-slate-400 mb-6 leading-relaxed">{t.hmoLong}</p>
+                <p className="text-slate-400 text-sm sm:text-base mb-6 leading-relaxed">{t.hmoLong}</p>
                 
-                <div className="grid grid-cols-2 gap-3 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-6">
                   <div className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                     <span className="text-[10px] font-bold uppercase tracking-wide text-white">{t.hmoBenefit1}</span>
@@ -738,19 +738,19 @@ export default function App() {
                     setShowPlansModal(false); 
                     window.scrollTo({top: 0, behavior: 'smooth'}); 
                   }} 
-                  className="w-full py-3 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition text-white text-sm"
+                  className="w-full py-3 mt-2 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition text-white text-sm"
                 >
                   {t.inquireNow}
                 </button>
               </div>
 
               {/* Non-Life */}
-              <div className="bg-slate-800/50 border border-white/10 p-8 rounded-[2rem] hover:border-blue-500/30 transition-all">
+              <div className="bg-slate-800/50 border border-white/10 p-5 sm:p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] hover:border-blue-500/30 transition-all">
                 <div className="mb-6">{products[2].icon}</div>
                 <h4 className="text-2xl font-bold mb-4 text-white">{t.nonLifeTitle}</h4>
-                <p className="text-slate-400 mb-6 leading-relaxed">{t.nonLifeLong}</p>
+                <p className="text-slate-400 text-sm sm:text-base mb-6 leading-relaxed">{t.nonLifeLong}</p>
                 
-                <div className="grid grid-cols-2 gap-3 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-6">
                   <div className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                     <span className="text-[10px] font-bold uppercase tracking-wide text-white">{t.nonLifeBenefit1}</span>
@@ -774,7 +774,7 @@ export default function App() {
                     setShowPlansModal(false); 
                     window.scrollTo({top: 0, behavior: 'smooth'}); 
                   }} 
-                  className="w-full py-3 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition text-white text-sm"
+                  className="w-full py-3 mt-2 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition text-white text-sm"
                 >
                   {t.inquireNow}
                 </button>
