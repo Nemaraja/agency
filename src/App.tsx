@@ -42,14 +42,14 @@ const translations = {
     contSite: "Continue to Site",
     lifeTitle: "Life Insurance",
     lifeShort: "Protect your family's future and peace of mind.",
-    hmoLong: "Our health maintenance plans provide comprehensive medical coverage including hospitalization, emergency care, preventive services, and access to an extensive network of accredited hospitals and physicians nationwide.",
+    lifeLong: "Our life insurance plans provide long-term financial protection, including income replacement, education funding, retirement planning, and coverage against critical illness to secure your family's future.",
     lifeBenefit1: "Death Benefit",
     lifeBenefit2: "Critical Illness",
     lifeBenefit3: "Education Fund",
     lifeBenefit4: "Retirement",
     hmoTitle: "HMO / Health",
     hmoShort: "Comprehensive medical protection for everyone.",
-    hmoLong: "Access the best hospitals and doctors through our premium healthcare partner network across the Philippines.",
+    hmoLong: "Our health maintenance plans provide comprehensive medical coverage including hospitalization, emergency care, preventive services, and access to an extensive network of accredited hospitals and physicians nationwide.",
     hmoBenefit1: "In-patient Care",
     hmoBenefit2: "Emergency",
     hmoBenefit3: "Dental",
@@ -670,7 +670,7 @@ export default function App() {
               <h4 className="text-xl font-bold mb-2 flex justify-between items-center text-white">
                 {p.name} <ChevronRight className={`w-5 h-5 transition-transform ${activePartner === i ? 'rotate-90 text-blue-500' : ''}`} />
               </h4>
-              <div className={`overflow-hidden transition-all duration-500 ${activePartner === i ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
+              <div className={`overflow-hidden transition-all duration-500 ${activePartner === i ? 'max-h-96 opacity-100 overflow-y-auto pr-2' : 'max-h-0 opacity-0'}`}>
                 <p className="text-sm text-slate-400 mt-4 leading-relaxed border-t border-white/10 pt-4">
   {p.desc[selectedLanguage] || p.desc["English"]}
 </p>
