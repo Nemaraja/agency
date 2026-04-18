@@ -1032,7 +1032,7 @@ formData.append("access_key", "d8e1068a-a04e-4d7d-90e5-633799a5a0bd");
           </div>
         </div>
       )}
-      
+    
       {/* TERMS AND CONDITIONS MODAL */}
       {isTnCOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
