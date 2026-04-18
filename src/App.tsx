@@ -301,6 +301,7 @@ export default function App() {
 
   // Terms and Conditions State
   const [isTnCOpen, setIsTnCOpen] = useState(false);
+  const [agreed, setAgreed] = useState(false);
 
   const partners = [
   {
@@ -426,15 +427,84 @@ export default function App() {
   const onSubmit = async (event) => {
     event.preventDefault();
     if (!selectedPlan) return alert("Please select a protection plan");
+    if (!agreed) return alert("Please agree to the Terms and Conditions");
     
     setLoading(true);
     const formData = new FormData(event.target);
-    formData.append("service", selectedPlan);
-    formData.append("car_year", selectedYear);
-    formData.append("car_make", selectedMake);
-    formData.append("car_model", selectedModel);
-    formData.append("property_type", selectedProp);
-    formData.append("access_key", "d8e1068a-a04e-4d7d-90e5-633799a5a0bd");
+
+// Core identity
+const name = formData.get("name");
+const email = formData.get("email");
+const phone = formData.get("phone");
+
+// Build professional formatted email content
+const message = `
+📩 NEW INSURANCE INQUIRY – BDRS ASSOCIATES
+
+━━━━━━━━━━━━━━━━━━━━━━
+👤 CLIENT INFORMATION
+━━━━━━━━━━━━━━━━━━━━━━
+Full Name: ${name}
+Email Address: ${email}
+Mobile Number: ${phone}
+
+━━━━━━━━━━━━━━━━━━━━━━
+🛡 INSURANCE REQUEST
+━━━━━━━━━━━━━━━━━━━━━━
+Plan Requested: ${selectedPlan}
+Submission Type: Insurance Inquiry
+
+${
+selectedPlan === "Non-Life: Motorcar" ? `
+━━━━━━━━━━━━━━━━━━━━━━
+🚗 VEHICLE DETAILS
+━━━━━━━━━━━━━━━━━━━━━━
+Year: ${selectedYear || ""}
+Make: ${selectedMake || ""}
+Model: ${selectedModel || ""}
+` : ""
+}
+
+${
+selectedPlan === "Non-Life: Fire" ? `
+━━━━━━━━━━━━━━━━━━━━━━
+🏠 PROPERTY DETAILS
+━━━━━━━━━━━━━━━━━━━━━━
+Property Type: ${selectedProp || ""}
+${formData.get("fire_address") ? `Address: ${formData.get("fire_address")}` : ""}
+${formData.get("building_value") ? `Building Value: ${formData.get("building_value")}` : ""}
+${formData.get("contents_value") ? `Contents Value: ${formData.get("contents_value")}` : ""}
+` : ""
+}
+
+━━━━━━━━━━━━━━━━━━━━━━
+📜 CONSENT
+━━━━━━━━━━━━━━━━━━━━━━
+Terms & Conditions Accepted: ${agreed ? "YES" : "NO"}
+
+━━━━━━━━━━━━━━━━━━━━━━
+🧾 SYSTEM INFO
+━━━━━━━━━━━━━━━━━━━━━━
+Source: BDRS Website
+Date Submitted: ${new Date().toLocaleString()}
+`;
+
+// Send structured message
+formData.append("name", name);
+formData.append("email", email);
+formData.append("phone", phone);
+formData.append("subject", `Insurance Inquiry - ${selectedPlan}`);
+formData.append("message", message);
+
+// Extra structured metadata (optional but clean)
+formData.append("Insurance Plan Requested", selectedPlan);
+formData.append("Vehicle Year", selectedYear || "");
+formData.append("Vehicle Make", selectedMake || "");
+formData.append("Vehicle Model", selectedModel || "");
+formData.append("Property Type", selectedProp || "");
+formData.append("Terms Accepted", agreed ? "Yes" : "No");
+
+formData.append("access_key", "d8e1068a-a04e-4d7d-90e5-633799a5a0bd");
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -667,19 +737,26 @@ export default function App() {
                   )}
                   
                   {/* TERMS AND CONDITIONS LINK */}
-                  <div className="pt-2 text-center relative z-20">
-                    <p className="text-[10px] text-slate-500">
-                      {t.agree}{' '}
-                      <span
-                        onClick={() => setIsTnCOpen(true)}
-                        className="font-bold text-blue-400 hover:text-blue-300 cursor-pointer underline underline-offset-2 transition-colors"
-                      >
-                        {t.tnc}
-                      </span>
-                    </p>
+                  <div className="pt-2 text-left relative z-20 space-y-2">
+                    <div className="flex items-start gap-2">
+                      <input
+                        type="checkbox"
+                        checked={agreed}
+                        onChange={(e) => setAgreed(e.target.checked)}
+                        className="mt-1 accent-blue-500 cursor-pointer"
+                      />
+                      <p className="text-[10px] text-slate-500">
+                        {t.agree}{' '}
+                        <span
+                          onClick={() => setIsTnCOpen(true)}
+                          className="font-bold text-blue-400 hover:text-blue-300 cursor-pointer underline underline-offset-2 transition-colors"
+                        >
+                          {t.tnc}
+                        </span>
+                      </p>
+                    </div>
                   </div>
-
-                  <button disabled={loading} type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 rounded-xl transition-all active:scale-[0.98] mt-2 relative z-10">
+                  <button disabled={loading || !agreed} type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 rounded-xl transition-all active:scale-[0.98] mt-2 relative z-10">
                     {loading ? t.sending : t.submit}
                   </button>
                 </form>
@@ -920,7 +997,7 @@ export default function App() {
               <p><strong>{t.tnc4Title}</strong> {t.tnc4}</p>
               <p><strong>{t.tnc5Title}</strong> {t.tnc5}</p>
             </div>
-            <button onClick={() => setIsTnCOpen(false)} className="w-full mt-8 py-4 bg-blue-600 rounded-2xl font-bold hover:bg-blue-500 transition text-white">I Understand</button>
+            <button onClick={() => { setAgreed(true); setIsTnCOpen(false); }} className="w-full mt-8 py-4 bg-blue-600 rounded-2xl font-bold hover:bg-blue-500 transition text-white">{t.understand}</button>
           </div>
         </div>
       )}
