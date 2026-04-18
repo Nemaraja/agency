@@ -28,6 +28,17 @@ const translations = {
     propType: "Select Property Type",
     agree: "By submitting, you agree to our",
     tnc: "Terms and Conditions",
+    tncTitle: "Terms and Conditions",
+    tnc1Title: "1. Intermediary Status:",
+    tnc1: "You acknowledge that BDRS Associates acts strictly as a licensed insurance intermediary (broker), facilitating negotiations between you and the insurance provider. We are not an insurer and do not directly provide underwriting services or issue policies.",
+    tnc2Title: "2. Obligation of True Information:",
+    tnc2: "You certify that all details provided in this request are accurate, complete, and correct. You understand that any misrepresentation or omission may invalidate your quote, cause delays, or provide grounds for the insurer to cancel any subsequent policy.",
+    tnc3Title: "3. Non-Binding Nature:",
+    tnc3: "Submitting this inquiry or receiving an initial quotation does not bind coverage. No insurance policy is in effect until formally approved by the chosen carrier, the premium is paid in full, and the policy document is issued.",
+    tnc4Title: "4. Consent to Communicate:",
+    tnc4: "You expressly authorize BDRS Associates and its licensed agents to contact you using the provided email address and phone number for purposes related to this quote request and insurance product offerings.",
+    tnc5Title: "5. Authorization to Process Data:",
+    tnc5: "You grant BDRS Associates consent to collect and process the provided personal data solely for the purpose of generating insurance quotes and facilitating your policy application in compliance with the Data Privacy Act of 2012.",
     submit: "Submit Inquiry",
     sending: "Sending...",
     sentTitle: "Inquiry Sent!",
@@ -83,6 +94,17 @@ const translations = {
     propType: "Uri ng Ari-arian",
     agree: "Sa pag-sumite, sumasang-ayon ka sa aming",
     tnc: "Mga Tuntunin at Kundisyon",
+    tncTitle: "Mga Tuntunin at Kundisyon",
+    tnc1Title: "1. Katayuan bilang Tagapamagitan:",
+    tnc1: "Kinikilala mo na ang BDRS Associates ay kumikilos lamang bilang lisensyadong insurance intermediary (broker) na tumutulong sa pakikipag-ugnayan sa insurance provider. Hindi kami insurer at hindi kami direktang nagbibigay ng underwriting o policy.",
+    tnc2Title: "2. Katumpakan ng Impormasyon:",
+    tnc2: "Pinatutunayan mong tama, kumpleto, at totoo ang lahat ng impormasyong ibinigay. Nauunawaan mo na ang maling impormasyon ay maaaring magpawalang-bisa sa iyong quote o policy.",
+    tnc3Title: "3. Hindi Agarang Saklaw:",
+    tnc3: "Ang pagsusumite ng inquiry o pagtanggap ng quote ay hindi nangangahulugang may insurance coverage na. Magiging epektibo lamang ito kapag naaprubahan, nabayaran, at naibigay ang policy.",
+    tnc4Title: "4. Pahintulot sa Pakikipag-ugnayan:",
+    tnc4: "Pinapayagan mo ang BDRS Associates na makipag-ugnayan sa iyo gamit ang iyong email at telepono para sa iyong request at mga insurance offer.",
+    tnc5Title: "5. Pahintulot sa Data Processing:",
+    tnc5: "Pinapayagan mo ang BDRS Associates na iproseso ang iyong personal na datos para sa insurance quotation alinsunod sa Data Privacy Act of 2012.",
     submit: "Ipadala ang Inquiry",
     sending: "Ipinapadala...",
     sentTitle: "Naipadala na!",
@@ -138,6 +160,17 @@ const translations = {
     propType: "选择财产类型",
     agree: "提交即表示您同意我们的",
     tnc: "条款与细则",
+    tncTitle: "条款与细则",
+    tnc1Title: "1. 中介身份：",
+    tnc1: "您确认BDRS Associates仅作为持牌保险中介，协助您与保险公司沟通。我们不是保险公司，不提供承保或签发保单。",
+    tnc2Title: "2. 信息真实性：",
+    tnc2: "您保证所提供的信息真实、完整。如有虚假可能导致报价或保单失效。",
+    tnc3Title: "3. 非约束性：",
+    tnc3: "提交咨询或收到报价并不代表已获得保险保障，需经批准并付款后才生效。",
+    tnc4Title: "4. 联系授权：",
+    tnc4: "您同意BDRS Associates通过您提供的联系方式与您沟通相关保险服务。",
+    tnc5Title: "5. 数据处理授权：",
+    tnc5: "您同意BDRS Associates根据数据隐私法处理您的个人信息用于保险服务。",
     submit: "提交咨询",
     sending: "发送中...",
     sentTitle: "咨询已发送！",
@@ -193,6 +226,17 @@ const translations = {
     propType: "物件タイプを選択",
     agree: "送信することで、以下に同意したことになります",
     tnc: "利用規約",
+    tncTitle: "利用規約",
+    tnc1Title: "1. 仲介者としての立場：",
+    tnc1: "BDRS Associatesは保険仲介者としてのみ機能し、保険会社との調整を行います。保険の引受や発行は行いません。",
+    tnc2Title: "2. 情報の正確性：",
+    tnc2: "提供された情報が正確で完全であることを保証します。不正確な情報は無効の原因となります。",
+    tnc3Title: "3. 非拘束性：",
+    tnc3: "見積もりや問い合わせは保険契約を意味しません。承認と支払い後にのみ有効となります。",
+    tnc4Title: "4. 連絡の同意：",
+    tnc4: "BDRS Associatesが提供された連絡先を使用して連絡することに同意します。",
+    tnc5Title: "5. 個人情報の処理：",
+    tnc5: "保険サービス提供のため、個人情報の処理に同意します。",
     submit: "お問い合わせ",
     sending: "送信中...",
     sentTitle: "送信完了！",
@@ -412,7 +456,7 @@ export default function App() {
       {/* NAVIGATION */}
       <nav className="fixed top-0 w-full z-50 px-4 py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl px-4 py-3 shadow-2xl">
-          <div className="flex flex-col cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+          <div className="flex flex-col cursor-pointer" onClick={() => typeof window !== "undefined" && window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <span className="text-lg md:text-xl font-black tracking-tight bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent uppercase">BDRS</span>
             <span className="text-[7px] md:text-[9px] uppercase tracking-widest text-slate-400 font-bold">Dependable Risk Solutions</span>
           </div>
@@ -868,13 +912,13 @@ export default function App() {
           <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={() => setIsTnCOpen(false)} />
           <div className="relative bg-slate-900 border border-white/10 w-full max-w-lg rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-300 text-left">
             <button onClick={() => setIsTnCOpen(false)} className="absolute top-8 right-8 p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition text-white"><X className="w-5 h-5" /></button>
-            <h3 className="text-3xl font-bold mb-6 text-white">Terms & Conditions</h3>
+            <h3 className="text-3xl font-bold mb-6 text-white">{t.tncTitle}</h3>
             <div className="text-sm text-slate-400 space-y-4 leading-relaxed overflow-y-auto max-h-96 pr-2">
-              <p><strong>1. Intermediary Status:</strong> You acknowledge that BDRS Associates acts strictly as a licensed insurance intermediary (broker), facilitating negotiations between you and the insurance provider. We are not an insurer and do not directly provide underwriting services or issue policies.</p>
-              <p><strong>2. Obligation of True Information:</strong> You certify that all details provided in this request are accurate, complete, and correct. You understand that any misrepresentation or omission may invalidate your quote, cause delays, or provide grounds for the insurer to cancel any subsequent policy.</p>
-              <p><strong>3. Non-Binding Nature:</strong> Submitting this inquiry or receiving an initial quotation does not bind coverage. No insurance policy is in effect until formally approved by the chosen carrier, the premium is paid in full, and the policy document is issued.</p>
-              <p><strong>4. Consent to Communicate:</strong> You expressly authorize BDRS Associates and its licensed agents to contact you using the provided email address and phone number for purposes related to this quote request and insurance product offerings.</p>
-              <p><strong>5. Authorization to Process Data:</strong> You grant BDRS Associates consent to collect and process the provided personal data solely for the purpose of generating insurance quotes and facilitating your policy application in compliance with the Data Privacy Act of 2012.</p>
+              <p><strong>{t.tnc1Title}</strong> {t.tnc1}</p>
+              <p><strong>{t.tnc2Title}</strong> {t.tnc2}</p>
+              <p><strong>{t.tnc3Title}</strong> {t.tnc3}</p>
+              <p><strong>{t.tnc4Title}</strong> {t.tnc4}</p>
+              <p><strong>{t.tnc5Title}</strong> {t.tnc5}</p>
             </div>
             <button onClick={() => setIsTnCOpen(false)} className="w-full mt-8 py-4 bg-blue-600 rounded-2xl font-bold hover:bg-blue-500 transition text-white">I Understand</button>
           </div>
