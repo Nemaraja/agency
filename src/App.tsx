@@ -432,7 +432,7 @@ export default function App() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (!agreed) return alert("Please agree to the Terms and Conditions");
+    if (!agreed) {   setErrors(prev => ({...prev,tnc: "Please agree to the Terms and Conditions"}));   return; }
     
     setLoading(true);
     const formData = new FormData(event.target);
@@ -507,23 +507,17 @@ Terms & Conditions Accepted: ${agreed ? "YES" : "NO"}
 Source: BDRS Website
 Date Submitted: ${new Date().toLocaleString()}
 `;
+formData.append("access_key", "d8e1068a-a04e-4d7d-90e5-633799a5a0bd");
 
-// Send structured message
+// ✅ ADD THESE LINES HERE
+formData.append("subject", "New Insurance Inquiry");
 formData.append("name", name);
-formData.append("email", email);
-formData.append("phone", phone);
-formData.append("subject", `Insurance Inquiry - ${selectedPlan}`);
 formData.append("message", message);
 
-// Extra structured metadata (optional but clean)
-formData.append("Insurance Plan Requested", selectedPlan);
-formData.append("Vehicle Year", selectedYear || "");
-formData.append("Vehicle Make", selectedMake || "");
-formData.append("Vehicle Model", selectedModel || "");
-formData.append("Property Type", selectedProp || "");
-formData.append("Terms Accepted", agreed ? "Yes" : "No");
-
-formData.append("access_key", "d8e1068a-a04e-4d7d-90e5-633799a5a0bd");
+// ✅ REMOVE DUPLICATES (VERY IMPORTANT)
+formData.delete("name");
+formData.delete("email");
+formData.delete("phone");
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
