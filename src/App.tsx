@@ -58,7 +58,7 @@ const translations = {
     lifeBenefit2: "Critical Illness",
     lifeBenefit3: "Education Fund",
     lifeBenefit4: "Retirement",
-    hmoTitle: "HMO / Health",
+    hmoTitle: "HMO / Health Coverage",
     hmoShort: "Comprehensive medical protection for everyone.",
     hmoLong: "Our health maintenance plans provide comprehensive medical coverage including hospitalization, emergency care, preventive services, and access to an extensive network of accredited hospitals and physicians nationwide.",
     hmoBenefit1: "In-patient Care",
@@ -124,7 +124,7 @@ const translations = {
     lifeBenefit2: "Critical Illness",
     lifeBenefit3: "Pondo para sa Edukasyon",
     lifeBenefit4: "Retirement",
-    hmoTitle: "HMO / Health",
+    hmoTitle: "HMO / Health Coverage",
     hmoShort: "Komprehensibong proteksyong medikal para sa lahat.",
     hmoLong: "Nagbibigay ang aming HMO plans ng komprehensibong medical coverage kabilang ang hospitalization, emergency care, at access sa malawak na network ng ospital at doktor.",
     hmoBenefit1: "In-patient Care",
@@ -275,12 +275,18 @@ const translations = {
 
 export default function App() {
   const [showLanguageModal, setShowLanguageModal] = useState(true);
+  const [errors, setErrors] = useState({});
   const [selectedLanguage, setSelectedLanguage] = useState("English");
   const t = translations[selectedLanguage] || translations["English"];
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const [showPlansModal, setShowPlansModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const formatNumber = (value) => {
+    return value
+      .replace(/,/g, '')
+      .replace(/\D/g, '')
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
   const [activePartner, setActivePartner] = useState(null);
   
   // Custom Dropdown States
@@ -426,16 +432,29 @@ export default function App() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (!selectedPlan) return alert("Please select a protection plan");
     if (!agreed) return alert("Please agree to the Terms and Conditions");
     
     setLoading(true);
     const formData = new FormData(event.target);
 
-// Core identity
-const name = formData.get("name");
-const email = formData.get("email");
-const phone = formData.get("phone");
+    // Core identity
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const phone = formData.get("phone");
+
+    const newErrors = {};
+
+    if (!name) newErrors.name = "Full name is required";
+    if (!email) newErrors.email = "Email is required";
+    if (!phone) newErrors.phone = "Mobile number is required";
+    if (!selectedPlan) newErrors.plan = "Please select a plan";
+    if (!agreed) newErrors.tnc = "You must accept Terms and Conditions";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      setLoading(false);
+      return;
+    }
 
 // Build professional formatted email content
 const message = `
@@ -567,13 +586,44 @@ formData.append("access_key", "d8e1068a-a04e-4d7d-90e5-633799a5a0bd");
                 <h3 className="text-2xl font-bold mb-6 text-white text-left">{t.requestQuote}</h3>
                 <form onSubmit={onSubmit} className="space-y-4 text-left">
                   <input name="name" type="text" placeholder={t.fullName} required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
+                  {errors.name && (
+                    <p className="text-red-400 text-xs mt-1">{errors.name}</p>
+                  )}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                    <input name="email" type="email" placeholder={t.email} required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
-                    <input name="phone" type="tel" placeholder={t.mobile} required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
+
+                    <div>
+                      <input
+                        name="email"
+                        type="email"
+                        placeholder={t.email}
+                        required
+                        className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500"
+                      />
+                      {errors.email && (
+                        <p className="text-red-400 text-xs mt-1">{errors.email}</p>
+                      )}
+                    </div>
+
+                   <div>
+                    <input
+                      name="phone"
+                      type="tel"
+                      placeholder={t.mobile}
+                      required
+                      className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500"
+                    />
+                    {errors.phone && (
+                      <p className="text-red-400 text-xs mt-1">{errors.phone}</p>
+                    )}
                   </div>
+
+                </div>
                   
                   {/* PROTECTION PLAN DROPDOWN */}
                   <div className="relative z-50">
+                    {errors.plan && (
+                      <p className="text-red-400 text-xs mt-1">{errors.plan}</p>
+                    )}
                     <div onClick={() => setIsPlanOpen(!isPlanOpen)} className={`w-full bg-slate-800/50 border rounded-xl px-4 py-4 flex justify-between items-center cursor-pointer transition-all duration-300 ${isPlanOpen ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-white/5'}`}>
                       <span className={selectedPlan ? "text-white font-medium" : "text-slate-500"}>{selectedPlan || t.selectPlan}</span>
                       <ChevronRight className={`w-5 h-5 text-slate-500 transition-transform duration-300 ${isPlanOpen ? 'rotate-90' : ''}`} />
@@ -715,8 +765,27 @@ formData.append("access_key", "d8e1068a-a04e-4d7d-90e5-633799a5a0bd");
                       <p className="text-[10px] font-bold text-orange-400 uppercase tracking-widest">{t.propTitle}</p>
                       <input name="fire_address" type="text" placeholder={t.propAddress} required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <input name="building_value" type="text" placeholder={t.bldgValue} required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
-                        <input name="contents_value" type="text" placeholder={t.contValue} className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
+                       <input
+                         name="building_value"
+                         type="text"
+                         onChange={(e) => {
+                           const formatted = formatNumber(e.target.value);
+                           e.target.value = formatted;
+                         }}
+                         placeholder={t.bldgValue}
+                         required
+                         className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500"
+                       /> 
+                        <input
+                          name="contents_value"
+                          type="text"
+                          onChange={(e) => {
+                            const formatted = formatNumber(e.target.value);
+                            e.target.value = formatted;
+                          }}
+                          placeholder={t.contValue}
+                          className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500"
+                        />
                       </div>
                       
                       {/* CUSTOM PROPERTY TYPE DROPDOWN */}
@@ -738,6 +807,9 @@ formData.append("access_key", "d8e1068a-a04e-4d7d-90e5-633799a5a0bd");
                   
                   {/* TERMS AND CONDITIONS LINK */}
                   <div className="pt-2 text-left relative z-20 space-y-2">
+                    {errors.tnc && (
+                      <p className="text-red-400 text-xs mt-1">{errors.tnc}</p>
+                    )}
                     <div className="flex items-start gap-2">
                       <input
                         type="checkbox"
@@ -960,29 +1032,7 @@ formData.append("access_key", "d8e1068a-a04e-4d7d-90e5-633799a5a0bd");
           </div>
         </div>
       )}
-
-      {/* PRODUCT MODAL */}
-      {selectedProduct && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={() => setSelectedProduct(null)} />
-          <div className="relative bg-slate-900 border border-white/10 w-full max-w-lg rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-300 text-left">
-            <button onClick={() => setSelectedProduct(null)} className="absolute top-8 right-8 p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition text-white"><X className="w-5 h-5" /></button>
-            <div className="mb-6">{selectedProduct.icon}</div>
-            <h3 className="text-3xl font-bold mb-4 text-white">{selectedProduct.title}</h3>
-            <p className="text-slate-400 mb-8 leading-relaxed">{selectedProduct.longDesc}</p>
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              {selectedProduct.benefits.map((b, i) => (
-                <div key={i} className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-3">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span className="text-[10px] font-bold uppercase tracking-wide text-white">{b}</span>
-                </div>
-              ))}
-            </div>
-            <button onClick={() => { setSelectedProduct(null); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="w-full py-4 bg-blue-600 rounded-2xl font-bold hover:bg-blue-500 transition text-white">{t.inquireNow}</button>
-          </div>
-        </div>
-      )}
-
+      
       {/* TERMS AND CONDITIONS MODAL */}
       {isTnCOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
