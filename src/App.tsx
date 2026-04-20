@@ -6,6 +6,17 @@ import {
   Languages
 } from 'lucide-react';
 
+const FormError = ({ message }) => {
+  if (!message) return null;
+
+  return (
+    <div className="mt-2 flex items-start gap-2 px-3 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs animate-in fade-in">
+      <X className="w-3 h-3 mt-[1px]" />
+      <span>{message}</span>
+    </div>
+  );
+};
+
 const translations = {
   "English": {
     heroSub: "BDRS Associates Insurance Agency",
@@ -275,6 +286,13 @@ const translations = {
 
 export default function App() {
   const [showLanguageModal, setShowLanguageModal] = useState(true);
+  const clearError = (field) => {
+    setErrors(prev => {
+      const copy = { ...prev };
+      delete copy[field];
+      return copy;
+    });
+  };
   const [errors, setErrors] = useState({});
   const [selectedLanguage, setSelectedLanguage] = useState("English");
   const t = translations[selectedLanguage] || translations["English"];
@@ -441,14 +459,30 @@ export default function App() {
     const email = formData.get("email");
     const phone = formData.get("phone");
 
+    
+    const validate = (name, email, phone, selectedPlan, agreed) => {
     const newErrors = {};
+      if (!name?.trim()) newErrors.name = "Full name is required";
+      if (!email?.trim()) newErrors.email = "Email is required";
+      if (!phone?.trim()) newErrors.phone = "Mobile number is required";
+      if (!selectedPlan) newErrors.plan = "Please select a plan";
+      if (!agreed) newErrors.tnc = "Please agree to the Terms and Conditions";
 
-    if (!name) newErrors.name = "Full name is required";
-    if (!email) newErrors.email = "Email is required";
-    if (!phone) newErrors.phone = "Mobile number is required";
-    if (!selectedPlan) newErrors.plan = "Please select a plan";
-    if (!agreed) newErrors.tnc = "Please agree to the Terms and Conditions";
+      if (selectedPlan === "Non-Life: Motorcar") {
+        if (!selectedYear) newErrors.year = "Year is required";
+        if (!selectedMake) newErrors.make = "Make is required";
+        if (!selectedModel) newErrors.model = "Model is required";
+    }
 
+      if (selectedPlan === "Non-Life: Fire") {
+      if (!selectedProp) newErrors.propertyType = "Property type is required";
+    }
+
+      return newErrors;
+    };
+
+const newErrors = validate(name, email, phone, selectedPlan, agreed);
+    
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       setLoading(false);
@@ -510,13 +544,7 @@ formData.append("access_key", "d8e1068a-a04e-4d7d-90e5-633799a5a0bd");
 
 // ✅ ADD THESE LINES HERE
 formData.append("subject", "New Insurance Inquiry");
-formData.append("name", name);
 formData.append("message", message);
-
-// ✅ REMOVE DUPLICATES (VERY IMPORTANT)
-formData.delete("name");
-formData.delete("email");
-formData.delete("phone");
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -578,9 +606,30 @@ formData.delete("phone");
               <>
                 <h3 className="text-2xl font-bold mb-6 text-white text-left">{t.requestQuote}</h3>
                 <form onSubmit={onSubmit} noValidate className="space-y-4 text-left">
-                  <input name="name" type="text" placeholder={t.fullName} required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
+                  <input
+                    name="name"
+                    type="text"
+                    placeholder={t.fullName}
+                    required
+                    onBlur={(e) => {
+                      if (!e.target.value) {
+                        setErrors(prev => ({ ...prev, name: "Full name is required" }));
+                      }
+                    }}
+                    onChange={() => {
+                      clearError("name");
+                      clearError("email");
+                      clearError("phone");
+                    }}
+                   className={`w-full bg-slate-800/50 border rounded-xl px-4 py-4 outline-none text-white transition placeholder:text-slate-500
+                     ${errors.name ? 'border-red-500 focus:border-red-500' : 'border-white/5 focus:border-blue-500'}
+                   `}
+                 />
                   {errors.name && (
-                    <p className="text-red-400 text-xs mt-1">{errors.name}</p>
+                    <div className="mt-2 flex items-start gap-2 px-3 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs animate-in fade-in slide-in-from-top-1">
+                      <X className="w-3 h-3 mt-[1px]" />
+                      <span>{errors.name}</span>
+                    </div>
                   )}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
 
@@ -593,7 +642,7 @@ formData.delete("phone");
                         className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500"
                       />
                       {errors.email && (
-                        <p className="text-red-400 text-xs mt-1">{errors.email}</p>
+                        <FormError message={errors.email} />
                       )}
                     </div>
 
@@ -606,7 +655,7 @@ formData.delete("phone");
                       className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500"
                     />
                     {errors.phone && (
-                      <p className="text-red-400 text-xs mt-1">{errors.phone}</p>
+                      <FormError message={errors.phone} />
                     )}
                   </div>
 
@@ -615,7 +664,10 @@ formData.delete("phone");
                   {/* PROTECTION PLAN DROPDOWN */}
                   <div className="relative z-50">
                     {errors.plan && (
-                      <p className="text-red-400 text-xs mt-1">{errors.plan}</p>
+                      <div className="mt-2 flex items-start gap-2 px-3 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs animate-in fade-in">
+                        <X className="w-3 h-3 mt-[1px]" />
+                        <span>{errors.plan}</span>
+                      </div>
                     )}
                     <div onClick={() => setIsPlanOpen(!isPlanOpen)} className={`w-full bg-slate-800/50 border rounded-xl px-4 py-4 flex justify-between items-center cursor-pointer transition-all duration-300 ${isPlanOpen ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-white/5'}`}>
                       <span className={selectedPlan ? "text-white font-medium" : "text-slate-500"}>{selectedPlan || t.selectPlan}</span>
@@ -624,7 +676,7 @@ formData.delete("phone");
                     {isPlanOpen && (
                       <div className="absolute top-[110%] left-0 w-full bg-[#0a0f1d] border border-white/10 rounded-2xl p-2 shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                         {planOptions.map((plan) => (
-                          <div key={plan} onClick={() => { setSelectedPlan(plan); setIsPlanOpen(false); }} className="group flex items-center justify-between px-4 py-3 rounded-xl hover:bg-blue-600/20 hover:text-blue-400 text-slate-300 transition-all cursor-pointer mb-1 last:mb-0">
+                          <div key={plan} onClick={() => { setSelectedPlan(plan); setIsPlanOpen(false); clearError("plan"); }} className="group flex items-center justify-between px-4 py-3 rounded-xl hover:bg-blue-600/20 hover:text-blue-400 text-slate-300 transition-all cursor-pointer mb-1 last:mb-0">
                             <span className="text-sm font-semibold">{plan}</span>
                             {selectedPlan === plan && <Check className="w-4 h-4 text-blue-400" />}
                           </div>
@@ -707,7 +759,7 @@ formData.delete("phone");
                             </div>
                           )}
                         </div>
-
+                        <FormError message={errors.year} />
                         {/* CUSTOM MAKE DROPDOWN */}
                         <div className="relative">
                           <div onClick={() => setIsMakeOpen(!isMakeOpen)} className={`w-full bg-slate-800/50 border rounded-xl px-4 py-3 flex justify-between items-center cursor-pointer transition-all duration-300 ${isMakeOpen ? 'border-blue-500' : 'border-white/5'}`}>
@@ -727,7 +779,7 @@ formData.delete("phone");
                           )}
                         </div>
                       </div>
-
+                      <FormError message={errors.make} />
                       {/* DEPENDENT MODEL DROPDOWN */}
                       <div className="relative z-30">
                         <div
@@ -751,7 +803,7 @@ formData.delete("phone");
                       <input name="plate_no" type="text" placeholder={t.plate} required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                     </div>
                   )}
-
+                  <FormError message={errors.model} />
                   {/* FIRE CONDITIONAL FIELDS */}
                   {selectedPlan === "Non-Life: Fire" && (
                     <div className="space-y-4 animate-in slide-in-from-top-2 duration-300 p-4 bg-orange-500/5 rounded-2xl border border-orange-500/20 relative z-40">
@@ -799,7 +851,7 @@ formData.delete("phone");
                   )}
                   
                   {/* TERMS AND CONDITIONS LINK */}
-                  <div className={`pt-2 text-left relative z-20 space-y-2 ${errors.tnc ? "border border-red-500/40 p-2 rounded-lg" : ""}`}>
+                  <div className="pt-2 text-left relative z-20 space-y-2">
                     <div className="flex items-start gap-2">
                       <input
                         type="checkbox"
@@ -830,9 +882,7 @@ formData.delete("phone");
 
                   {/* 🔥 ADD THIS RIGHT BELOW */}
                   {errors.tnc && (
-                    <p className="text-red-400 text-xs mt-1 ml-5">
-                      {errors.tnc}
-                     </p>
+                    <FormError message={errors.tnc} />
                     )}
                   </div>
                   <button
