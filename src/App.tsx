@@ -286,14 +286,12 @@ const translations = {
 
 export default function App() {
   const [showLanguageModal, setShowLanguageModal] = useState(true);
-  const clearError = (field) => {
-    setErrors(prev => {
-      const copy = { ...prev };
-      delete copy[field];
-      return copy;
-    });
-  };
-  const [errors, setErrors] = useState({});
+  const [toasts, setToasts] = useState([]);
+  const addToast = (message, type = "error") => {
+  setToasts((prev) => [...prev, { id: Date.now(), message, type }]);
+};
+  import { useEffect } from "react";
+  const [isShowingToast, setIsShowingToast] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("English");
   const t = translations[selectedLanguage] || translations["English"];
   const [showPlansModal, setShowPlansModal] = useState(false);
@@ -484,10 +482,10 @@ export default function App() {
 const newErrors = validate(name, email, phone, selectedPlan, agreed);
     
     if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      setLoading(false);
-      return;
-    }
+  addToast(Object.values(newErrors)[0], "error");
+  setLoading(false);
+  return;
+}
 
 // Build professional formatted email content
 const message = `
@@ -642,7 +640,6 @@ formData.append("message", message);
                         className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500"
                       />
                       {errors.email && (
-                        <FormError message={errors.email} />
                       )}
                     </div>
 
@@ -655,7 +652,6 @@ formData.append("message", message);
                       className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500"
                     />
                     {errors.phone && (
-                      <FormError message={errors.phone} />
                     )}
                   </div>
 
@@ -759,7 +755,6 @@ formData.append("message", message);
                             </div>
                           )}
                         </div>
-                        <FormError message={errors.year} />
                         {/* CUSTOM MAKE DROPDOWN */}
                         <div className="relative">
                           <div onClick={() => setIsMakeOpen(!isMakeOpen)} className={`w-full bg-slate-800/50 border rounded-xl px-4 py-3 flex justify-between items-center cursor-pointer transition-all duration-300 ${isMakeOpen ? 'border-blue-500' : 'border-white/5'}`}>
@@ -779,7 +774,6 @@ formData.append("message", message);
                           )}
                         </div>
                       </div>
-                      <FormError message={errors.make} />
                       {/* DEPENDENT MODEL DROPDOWN */}
                       <div className="relative z-30">
                         <div
@@ -803,7 +797,6 @@ formData.append("message", message);
                       <input name="plate_no" type="text" placeholder={t.plate} required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                     </div>
                   )}
-                  <FormError message={errors.model} />
                   {/* FIRE CONDITIONAL FIELDS */}
                   {selectedPlan === "Non-Life: Fire" && (
                     <div className="space-y-4 animate-in slide-in-from-top-2 duration-300 p-4 bg-orange-500/5 rounded-2xl border border-orange-500/20 relative z-40">
@@ -882,7 +875,6 @@ formData.append("message", message);
 
                   {/* 🔥 ADD THIS RIGHT BELOW */}
                   {errors.tnc && (
-                    <FormError message={errors.tnc} />
                     )}
                   </div>
                   <button
@@ -1116,6 +1108,34 @@ formData.append("message", message);
           </div>
         </div>
       )}
+      {/* TOAST CONTAINER */}
+<div className="fixed top-6 right-6 z-[9999] w-[300px]">
+  {toasts[0] && (
+    <div
+      key={toasts[0].id}
+      className={`px-4 py-3 rounded-xl shadow-lg text-sm border backdrop-blur-xl transition-all duration-300 animate-in fade-in slide-in-from-top-2
+        ${toasts[0].type === "error"
+          ? "bg-red-500/10 border-red-500/30 text-red-300"
+          : "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
+        }`}
+    >
+      {toasts[0].message}
+    </div>
+  )}
+</div>
+    <div
+      key={toast.id}
+      className={`px-4 py-3 rounded-xl shadow-lg text-sm border backdrop-blur-xl transition-all duration-300
+        animate-in fade-in slide-in-from-right-2
+        ${toast.type === "error"
+          ? "bg-red-500/10 border-red-500/30 text-red-300"
+          : "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
+        }`}
+    >
+      {toast.message}
+    </div>
+  ))}
+</div>
     </div>
   );
 }
