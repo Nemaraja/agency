@@ -836,7 +836,7 @@ formData.delete("phone");
                     )}
                   </div>
                   <button
-                    disabled={loading || !agreed}
+                    disabled={loading}
                     type="submit"
                     className={`w-full font-black py-4 rounded-xl transition-all mt-2 relative z-10
                       ${loading || !agreed
