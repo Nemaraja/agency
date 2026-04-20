@@ -432,7 +432,6 @@ export default function App() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (!agreed) {   setErrors(prev => ({...prev,tnc: "Please agree to the Terms and Conditions"}));   return; }
     
     setLoading(true);
     const formData = new FormData(event.target);
@@ -448,7 +447,7 @@ export default function App() {
     if (!email) newErrors.email = "Email is required";
     if (!phone) newErrors.phone = "Mobile number is required";
     if (!selectedPlan) newErrors.plan = "Please select a plan";
-    if (!agreed) newErrors.tnc = "You must accept Terms and Conditions";
+    if (!agreed) newErrors.tnc = "Please agree to the Terms and Conditions";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -801,28 +800,46 @@ formData.delete("phone");
                   
                   {/* TERMS AND CONDITIONS LINK */}
                   <div className="pt-2 text-left relative z-20 space-y-2">
-                    {errors.tnc && (
-                      <p className="text-red-400 text-xs mt-1">{errors.tnc}</p>
-                    )}
                     <div className="flex items-start gap-2">
                       <input
                         type="checkbox"
                         checked={agreed}
-                        onChange={(e) => setAgreed(e.target.checked)}
-                        className="mt-1 accent-blue-500 cursor-pointer"
+                        onChange={(e) => {
+                          setAgreed(e.target.checked);
+                          if (e.target.checked) {
+                              setErrors(prev => ({ ...prev, tnc: "" }));
+                           }
+                         }}
+                         className="mt-1 accent-blue-500 cursor-pointer"
                       />
+
                       <p className="text-[10px] text-slate-500">
                         {t.agree}{' '}
                         <span
                           onClick={() => setIsTnCOpen(true)}
                           className="font-bold text-blue-400 hover:text-blue-300 cursor-pointer underline underline-offset-2 transition-colors"
                         >
-                          {t.tnc}
-                        </span>
-                      </p>
-                    </div>
+                         {t.tnc}
+                       </span>
+                     </p>
+                   </div>
+
+                  {/* 🔥 ADD THIS RIGHT BELOW */}
+                  {errors.tnc && (
+                    <p className="text-red-400 text-xs mt-1 ml-5">
+                      {errors.tnc}
+                     </p>
+                    )}
                   </div>
-                  <button disabled={loading || !agreed} type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 rounded-xl transition-all active:scale-[0.98] mt-2 relative z-10">
+                  <button
+                    disabled={loading || !agreed}
+                    type="submit"
+                    className={`w-full font-black py-4 rounded-xl transition-all mt-2 relative z-10
+                      ${loading || !agreed
+                        ? "bg-slate-600 text-slate-300 cursor-not-allowed"
+                        : "bg-emerald-500 hover:bg-emerald-400 text-slate-950 active:scale-[0.98]"
+                      }`}
+                  >
                     {loading ? t.sending : t.submit}
                   </button>
                 </form>
