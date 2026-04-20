@@ -577,7 +577,7 @@ formData.delete("phone");
             {!submitted ? (
               <>
                 <h3 className="text-2xl font-bold mb-6 text-white text-left">{t.requestQuote}</h3>
-                <form onSubmit={onSubmit} className="space-y-4 text-left">
+                <form onSubmit={onSubmit} noValidate className="space-y-4 text-left">
                   <input name="name" type="text" placeholder={t.fullName} required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition placeholder:text-slate-500" />
                   {errors.name && (
                     <p className="text-red-400 text-xs mt-1">{errors.name}</p>
@@ -799,7 +799,7 @@ formData.delete("phone");
                   )}
                   
                   {/* TERMS AND CONDITIONS LINK */}
-                  <div className="pt-2 text-left relative z-20 space-y-2">
+                  <div className={`pt-2 text-left relative z-20 space-y-2 ${errors.tnc ? "border border-red-500/40 p-2 rounded-lg" : ""}`}>
                     <div className="flex items-start gap-2">
                       <input
                         type="checkbox"
@@ -807,9 +807,13 @@ formData.delete("phone");
                         onChange={(e) => {
                           setAgreed(e.target.checked);
                           if (e.target.checked) {
-                              setErrors(prev => ({ ...prev, tnc: "" }));
-                           }
-                         }}
+                            setErrors(prev => {
+                              const copy = { ...prev };
+                              delete copy.tnc;
+                              return copy;
+                            });
+                          }
+                        }}
                          className="mt-1 accent-blue-500 cursor-pointer"
                       />
 
